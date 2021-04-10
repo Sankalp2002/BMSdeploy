@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<title>Home</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="{% static 'assets/css/home.css' %}"/>
+</head>
+
+<body>
+  <!-- <h1>{{ test1 }}</h1> -->
+    <div>
+        <div class="header-dark">
+            <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+                <div class="container"><a class="navbar-brand" href="#">BloodBank Registration</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse"
+                        id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{%url 'adminlogin' %}">Admin</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{%url 'doclogin' %}">Doctor</a></li>
+                        </ul>
+                        <form class="form-inline mr-auto" target="_self">
+                        </form><a class="btn btn-light action-button" role="button" href="{%url 'docregister' %}">Sign Up</a></div>
+                </div>
+            </nav>
+            <div class="container hero">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="container">
+                        <p id="typewriter" data-typewriter="Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives"></p><span class="blinking-cursor">|</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var typewriter = function(txt) {
+    var container = document.getElementById('typewriter'),
+      speed = 28,
+      i = 0,
+      wordsObj = txt.split(" ")
+    container.textContent = "";
+    console.log(txt)
+    runAllWords();
+    function runAllWords() {
+
+      if (i < wordsObj.length) {
+        var a = (i == 0) ? i : i - 1;
+        setTimeout(function() {
+          showWord(wordsObj[i], 0)
+        }, wordsObj[a].length * speed);
+      }
+    }
+
+    function showWord(word, countWord) {
+      if (countWord < word.length) {
+        setTimeout(function() {
+          showLetter(word, countWord)
+        }, speed);
+      } else {
+        container.textContent = container.textContent + " ";
+        i += 1;
+        runAllWords();
+      }
+      if (i === wordsObj.length) {
+        console.log('complete')
+      }
+    }
+
+    function showLetter(word, countWord) {
+      container.textContent = container.textContent + word[countWord];
+      showWord(word, countWord + 1);
+    }
+  }
+  // window.onload = typewriter();
+// var container = document.getElementById('typewriter'),
+//   dataText = container.dataset.typewriter,
+//   splitTxt = dataText.split(",")
+// for (var x = 0, ln = splitTxt.length; x < ln; x++) {
+//   setTimeout(typewriter(splitTxt[x]), x * 9000, x);
+// }
+
+
+var i = 0;
+function myLoop () {  
+//  create a loop function
+    
+   var dataType = document.getElementById('typewriter').dataset.typewriter,
+       w = dataType.split(',')
+   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+      typewriter(w[i]);          //  your code here
+      i++;                     //  increment the counter
+      if (i < w.length) {            //  if the counter < 10, call the loop function
+         myLoop();             //  ..  again which will trigger another 
+      }                        //  ..  setTimeout()
+   }, 3000)
+}
+
+myLoop();
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

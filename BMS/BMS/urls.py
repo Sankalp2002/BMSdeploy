@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+from Doctor import views as dviews
+# from Patient import views as pviews
+# from Donor import views as doviews
+from Blood import views as bviews
 
 urlpatterns = [
+    path('',bviews.home,name='home'),
     path('admin/', admin.site.urls),
+    path('Doctor/',include('Doctor.urls')),
+    path('Adminlogin/',bviews.adminlogin,name='adminlogin'),
+    # path('Patient/',include('Patient.urls')),
+    # path('Donor/',include('Donor.urls'))
 ]

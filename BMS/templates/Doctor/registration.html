@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<title>Register Doctor</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"/>
+</head>
+
+<body>
+    <div class="login-dark">
+        <form method="post">
+            <h2 class="header">Registration</h2>
+            <!-- <div class="illustration"><i class="icon ion-clipboard"></i></div>
+            <div class="form-group"><input class="form-control" type="text" name="Name" placeholder="Name"></div>
+            <div class="form-group"><input class="form-control" type="text" name="Address" placeholder="Address"></div>
+            <div class="form-group"><input class="form-control" type="text" name="Phone" placeholder="Phone"></div>
+            <div class="form-group"><input class="form-control" type="text" name="HospitalID" placeholder="Hospital ID"></div>
+            <div class="form-group"><input class="form-control" type="text" name="Degree" placeholder="Degree"></div>
+            <div class="form-group"><input class="form-control-ii" type="number" name="Age" placeholder="  Age"></div>
+            <div id="ddone">
+              <div>
+                <select id="pd1" name="pd1" class="select-css">
+              <option value="ds1" >Female</option>
+                <option value="ds2">Male</option>
+                </select>
+              </div>
+          </div>
+            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div> -->
+            <div class="form-group">{{ form.name }}</div>
+            <div class="form-group">{{ form.address }}</div>
+            <div class="form-group">{{ form.phone }}</div>
+            <div class="form-group">{{ form.hospital_id }}</div>
+            <div class="form-group">{{ form.degree }}</div>
+            <div class="form-group">{{ form.age }}</div>
+            <div class="form-group">{{ form.sex }}</div>
+            <div class="form-group">{{ form.email }}</div>
+            <div class="form-group">{{ form.password }}</div>
+            {% csrf_token %}
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
+          </form>
+          </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
