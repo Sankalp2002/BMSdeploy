@@ -14,7 +14,7 @@ class Hospital(models.Model):
         return self.name
 
 
-class Doctor(models.Model):
+class Doctor(AbstractBaseUser):
     SEX_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -31,9 +31,9 @@ class Doctor(models.Model):
     degree = models.CharField(max_length=32, help_text="Enter your Degree")
     hospitalId = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
-    doctorId = models.CharField(
+    username = models.CharField(
         max_length=32, help_text="Enter your username", primary_key=True)
     password = models.CharField(max_length=1024, help_text="Atleast one each of digit,alphabet,special character required")
-
+    USERNAME_FIELD='username'
     def str(self):
-        return self.doctorId
+        return self.username
