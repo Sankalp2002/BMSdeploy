@@ -11,14 +11,19 @@ def doclogin(request):
     return render(request,'Doctor/doctorlogin.html',{'form':form})
  
 def docregister(request):
+    registered=False
     form=docregisterform()
     if request.method=='POST':
-        form=docregisterform(request.POST)
+        form=docregisterform(data=request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            doc=form.save()
+            doc.set_password(doc.password)
+            doc.save()
+            registered=True
             return home(request)
         else:
-            print('error')
-            
-    return render(request,'Doctor/registration.html',{'form':form})
+            print(docregisterform.errors)
+    else:
+        form=docregisterform()
+    return render(request,'Doctor/registration.html',{'form':form,'registered':registered})
 

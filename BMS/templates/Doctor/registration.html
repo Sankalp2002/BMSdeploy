@@ -13,6 +13,9 @@
 
 <body>
     <div class="login-dark">
+      {% if registered %}
+        <h2 class="header">Registration Successful</h2>
+      {% else %}
         <form method="post">
             <h2 class="header">Registration</h2>
            <div class="illustration"><i class="icon ion-clipboard"></i></div>
@@ -29,22 +32,24 @@
                 <option value="ds2">Male</option>
                 </select>
               </div>
-          </div>
+            </div>
             <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
             <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div> -->
             <div class="form-group">{{ form.name }}</div>
-            <div class="form-group">{{ form.address }}</div>
-            <div class="form-group">{{ form.phone }}</div>
-            <div class="form-group">{{ form.hospital_id }}</div>
-            <div class="form-group">{{ form.degree }}</div>
             <div class="form-group">{{ form.age }}</div>
             <div class="form-group">{{ form.sex }}</div>
+            <div class="form-group">{{ form.address }}</div>
+            <div class="form-group">{{ form.phone }}</div>
             <div class="form-group">{{ form.email }}</div>
+            <div class="form-group">{{ form.degree }}</div>
+            <div class="form-group">{{ form.hospitalId }}</div>
+            <div class="form-group">{{ form.doctorId }}</div>
             <div class="form-group">{{ form.password }}</div>
             {% csrf_token %}
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
           </form>
-          </div>
+        {% endif %}
+      </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 </body>

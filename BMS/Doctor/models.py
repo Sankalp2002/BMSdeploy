@@ -1,6 +1,7 @@
 # Doctor
 from django.db import models
 from phone_field import PhoneField
+from django.contrib.auth.models import AbstractBaseUser
 # Create your models here.
 
 
@@ -10,7 +11,7 @@ class Hospital(models.Model):
     address = models.CharField(max_length=128)
 
     def str(self):
-        return self.hospitalId
+        return self.name
 
 
 class Doctor(models.Model):
@@ -32,8 +33,7 @@ class Doctor(models.Model):
         Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
     doctorId = models.CharField(
         max_length=32, help_text="Enter your username", primary_key=True)
-    password = models.CharField(
-        max_length=32, help_text="Atleast one each of digit,alphabet,special character required")
+    password = models.CharField(max_length=1024, help_text="Atleast one each of digit,alphabet,special character required")
 
     def str(self):
         return self.doctorId

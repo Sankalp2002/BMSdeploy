@@ -7,3 +7,6 @@ def home(request):
 
 def adminlogin(request):
     return render(request,'Blood/adminlogin.html')
+
+def adminpanel(request):
+    return render(request,'Blood/adminpanel.html')

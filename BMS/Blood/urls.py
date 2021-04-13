@@ -2,7 +2,10 @@ from django.conf.urls import url
 from Blood import views
 from django.urls import path
 
+# app_name='Admin'
+
 urlpatterns=[
-    path('home/',views.home,name='home'),
-    path('adminlogin/',views.adminlogin,name='adminlogin'),
+    # path('Home/',views.home,name='home'),
+    path('Login/',views.adminlogin,name='adminlogin'),
+    path('Panel/',views.adminpanel,name='adminpanel'),
 ]

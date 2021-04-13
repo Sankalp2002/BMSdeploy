@@ -25,7 +25,8 @@ urlpatterns = [
     path('',bviews.home,name='home'),
     path('admin/', admin.site.urls),
     path('Doctor/',include('Doctor.urls')),
-    path('Adminlogin/',bviews.adminlogin,name='adminlogin'),
+    path('Admin/',include('Blood.urls')),
+
     # path('Patient/',include('Patient.urls')),
     # path('Donor/',include('Donor.urls'))
 ]

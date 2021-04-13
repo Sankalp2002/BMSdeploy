@@ -4,6 +4,7 @@ from Doctor.models import Doctor,Hospital
 from django.core.exceptions import ValidationError
 
 class docregisterform(forms.ModelForm):
+    password=forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model=Doctor
         fields='__all__'
