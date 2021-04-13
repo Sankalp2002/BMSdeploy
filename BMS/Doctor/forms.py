@@ -8,6 +8,17 @@ class docregisterform(forms.ModelForm):
         model=Doctor
         fields='__all__'
 
+
+class docloginform(forms.Form):
+    doctorId = forms.CharField(
+        max_length=32, help_text="Enter your username")
+    password = forms.CharField(
+        max_length=32, help_text="Atleast one each of digit,alphabet,special character required")
+
+
+
+
+
         # name=forms.CharField(required=True,max_length=20,min_length=5)
     # address=forms.CharField(required=True,max_length=100,min_length=5)
     # phone=forms.PhoneField(required=True)
