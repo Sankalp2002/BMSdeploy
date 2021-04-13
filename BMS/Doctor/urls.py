@@ -5,6 +5,7 @@ from django.urls import path
 app_name='Doctor'
 
 urlpatterns=[
-    path('login/',views.doclogin,name='doclogin'),
-    path('register/',views.docregister,name='docregister'),
+    path('Login/',views.doclogin,name='doclogin'),
+    path('Register/',views.docregister,name='docregister'),
+    #path('panel/',views.docpanel,name='docpanel'),
 ]

@@ -1,29 +1,62 @@
 from django.shortcuts import render
-from Doctor.forms import docregisterform
+# from Doctor.views import docpanel
+from Doctor.forms import docregisterformA,docregisterformB
 from Blood.views import home
 from . import forms
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth import authenticate,login,logout
 #from django.http import HttpResponse
 # from Doctor.forms import docregisterform
 
 # Create your views here.
+# def docpanel(request):
+#     return render(request,'Doctor/doctorpanel.html',{})
+
 def doclogin(request):
-    form=forms.docloginform()
-    return render(request,'Doctor/doctorlogin.html',{'form':form})
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        docuser=authenticate(username=username,password=password)
+        if docuser:
+            login(request,docuser)
+            return HttpResponseRedirect(reverse('Doctor:docpanel'))
+            # if docuser.is_active:
+            #     login(request,docuser)
+            #     return HttpResponseRedirect(reverse('docpanel'))
+            # else:
+            #     return HttpResponse("Account not active")
+        else:
+            print("A login failed")
+            return(HttpResponse("Invalid login details!"))
+    else:
+        return render(request,'Doctor/doctorlogin.html',{})
+
+@login_required
+def doclogout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
  
 def docregister(request):
     registered=False
-    form=docregisterform()
     if request.method=='POST':
-        form=docregisterform(data=request.POST)
-        if form.is_valid():
-            doc=form.save()
-            doc.set_password(doc.password)
-            doc.save()
+        formA=docregisterformA(data=request.POST)
+        formB=docregisterformB(data=request.POST)
+        if formA.is_valid() and formB.is_valid():
+            docA=formA.save()
+            docA.set_password(docA.password)
+            docA.save()
+            docB=formB.save(commit=False)
+            docB.docA=docA
+            docB.save()
             registered=True
-            return home(request)
+            # return home(request)
         else:
-            print(docregisterform.errors)
+            print(docregisterformA.errors,docregisterformB.errors)
     else:
-        form=docregisterform()
-    return render(request,'Doctor/registration.html',{'form':form,'registered':registered})
+        formA=docregisterformA()
+        formB=docregisterformB()
+    return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
 

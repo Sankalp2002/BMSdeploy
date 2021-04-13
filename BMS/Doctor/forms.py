@@ -3,18 +3,23 @@ from django import forms
 from Doctor.models import Doctor,Hospital
 from django.core.exceptions import ValidationError
 
-class docregisterform(forms.ModelForm):
+class docregisterformA(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model=Doctor
-        fields='__all__'
+        fields=('username','email','password')
+
+class docregisterformB(forms.ModelForm):
+    class Meta():
+        model=Doctor
+        fields=('name','age','sex','address','phone','degree','hospitalId')
 
 
-class docloginform(forms.Form):
-    doctorId = forms.CharField(
-        max_length=32, help_text="Enter your username")
-    password = forms.CharField(
-        max_length=32, help_text="Atleast one each of digit,alphabet,special character required")
+# class docloginform(forms.Form):
+#     doctorId = forms.CharField(
+#         max_length=32, help_text="Enter your username")
+#     password = forms.CharField(
+#         max_length=32, help_text="Atleast one each of digit,alphabet,special character required")
 
 
 
@@ -81,4 +86,17 @@ class docloginform(forms.Form):
     #         raise ValidationError(_('Password must contain at least 1 special character'))
     #     return data
 
-    
+        
+    # SEX_CHOICES = (
+    #     ('M', 'Male'),
+    #     ('F', 'Female'),
+    #     ('O', 'Other'),
+    # )
+    # name = forms.CharField(max_length=32, help_text="Enter your name")
+    # age = forms.PositiveIntegerField(default=18, help_text="Enter your age")
+    # sex = forms.CharField(max_length=1, choices=SEX_CHOICES, default='M')
+    # address = forms.CharField(max_length=128, help_text="Enter your address")
+    # phone = PhoneField( help_text="Enter your phone number", unique=True)
+    # degree = forms.CharField(max_length=32, help_text="Enter your Degree")
+    # hospitalId = forms.ForeignKey(
+    #     Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
