@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'phone_field',
 ]
 # AUTH_USER_MODEL = 'Doctor.Doctor'
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

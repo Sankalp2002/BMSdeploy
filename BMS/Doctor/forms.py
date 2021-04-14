@@ -1,10 +1,12 @@
 from django import forms
 #from django.db import models
-from Doctor.models import Doctor,Hospital
+from Doctor.models import Doctor
 from django.core.exceptions import ValidationError
 
 class docregisterformA(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput())
+    email = forms.EmailField(widget=forms.EmailInput())
+    username = forms.CharField(widget=forms.TextInput())
     class Meta:
         model=Doctor
         fields=('username','email','password')
