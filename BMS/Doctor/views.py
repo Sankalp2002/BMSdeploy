@@ -45,11 +45,14 @@ def docregister(request):
         formA=docregisterformA(data=request.POST)
         formB=docregisterformB(data=request.POST)
         if formA.is_valid() and formB.is_valid():
-            docA=formA.save()
+            docA=formA.save(commit=False)
+            #print(formB.cleaned_data['username'])
             docA.set_password(docA.password)
             docA.save()
             docB=formB.save(commit=False)
-            docB.docA=docA
+            var=formA.cleaned_data['username']
+            print(docA)
+            docB.DocUser=docA
             docB.save()
             registered=True
             # return home(request)

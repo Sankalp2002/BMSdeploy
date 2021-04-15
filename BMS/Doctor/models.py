@@ -23,6 +23,7 @@ class Doctor(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     )
+    #id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')

@@ -1,28 +1,29 @@
 {% extends "Blood/adminbase.html" %}
 {% block title %}
-  <title>Admin: Doctors</title>
+  <title>Admin: Patient</title>
 {% endblock %}
 {% block content %}
 
+
 <br><br>
 <div class="container">
-    <H4 class="text-center">DOCTOR DETAILS</H4><br>
+    <H4 class="text-center">PATIENT DETAILS</H4><br>
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Doctor ID</th>
-                <th scope="col">Hospital ID</th>
                 <th scope="col">Age</th>
-                <th scope="col">Phone</th>
-                <th class="text-right">Degree</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Mobile</th>
+                <th class="text-right">Action</th>
             </tr>
         </thead>
-        <!-- <tbody>
+        <tbody>
             {% for t in patients %}
             <tr>
                 <td> {{t.get_name}}</td>
-                <td> <img src="" alt="Profile Pic" height="40px" width="40px" /></td>
+                <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
                 <td>{{t.bloodgroup}}</td>
                 <td>{{t.age}}</td>
                 <td>{{t.disease}}</td>
@@ -35,8 +36,10 @@
             </tr>
             {% endfor %}
 
-        </tbody> -->
+        </tbody>
     
     </table>
 </div>
+
+
 {% endblock %}
