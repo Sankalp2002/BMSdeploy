@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html>
 <title>Register Doctor</title>
 <head>
@@ -35,16 +36,16 @@
             </div>
             <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
             <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div> -->
-            <div class="form-group">{{ formB.name }}</div>
-            <div class="form-group">{{ formB.age }}</div>
-            <div class="form-group">{{ formB.sex }}</div>
-            <div class="form-group">{{ formB.address }}</div>
-            <div class="form-group">{{ formB.phone }}</div>
-            <div class="form-group">{{ formA.email }}</div>
-            <div class="form-group">{{ formB.degree }}</div>
-            <div class="form-group">{{ formB.hospitalId }}</div>
-            <div class="form-group">{{ formA.username }}</div>
-            <div class="form-group">{{ formA.password }}</div>
+            <div class="form-group">{{ formB.name|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.age|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.sex|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.address|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.phone|as_crispy_field }}</div>
+            <div class="form-group">{{ formA.email|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.degree|as_crispy_field }}</div>
+            <div class="form-group">{{ formB.hospitalId|as_crispy_field }}</div>
+            <div class="form-group">{{ formA.username|as_crispy_field }}</div>
+            <div class="form-group">{{ formA.password|as_crispy_field }}</div>
             {% csrf_token %}
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
           </form>

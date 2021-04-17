@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'Donor',
     'Patient',
     'phone_field',
+    'crispy_forms'
 ]
 # AUTH_USER_MODEL = 'Doctor.Doctor'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+CRISPY_TEMPLATE_PACK='bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
