@@ -73,3 +73,15 @@ def docpanelrequest(request):
 def docpaneldonor(request):
     return render(request,'Doctor/doctorpaneldonor.html')
 
+@login_required
+def docpanelpatient(request):
+    return render(request,'Doctor/doctorpanelpatient.html')
+
+@login_required
+def docpanelplist(request):
+    return render(request,'Doctor/doctorpanelpatientlist.html')
+
+@login_required
+def docpanelrlist(request):
+    return render(request,'Doctor/doctorpanelrequestlist.html')
+
