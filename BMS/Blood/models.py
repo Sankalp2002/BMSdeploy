@@ -10,7 +10,7 @@ class BloodInventory(models.Model):
     bloodType = models.CharField(max_length=3, primary_key=True)
     unit = models.PositiveIntegerField(default=0)
 
-    def str(self):
+    def __str__(self):
         return self.bloodType
 
 
@@ -29,7 +29,7 @@ class BloodRequest(models.Model):
         max_length=1, choices=APPROVAL_CHOICES, default='P')
     quantity = models.PositiveIntegerField()
 
-    def str(self):
+    def __str__(self):
         return self.requestId
 
     class Meta:

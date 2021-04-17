@@ -21,5 +21,5 @@ class Patient(models.Model):
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
     bloodType = models.CharField(max_length=3)
 
-    def str(self):
+    def __str__(self):
         return self.patientId

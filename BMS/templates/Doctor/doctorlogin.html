@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<title>Login Doctor</title>
+<title>Login as Doctor</title>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,13 @@
     <!-- <h1>{{ test1 }}</h1> -->
     <div class="login-dark">
         <form action="{% url 'Doctor:doclogin'%}" method="post">
+            {% csrf_token %}
             <h2 class="header">Doctor Login</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password"></div>
             <!-- <div class="form-group">{{ form.doctorId }}</div>
             <div class="form-group">{{ form.password }}</div> -->
-            {% csrf_token %}
             <div class="form-group"><button class="btn btn-primary btn-block" type="submit" value="Login">Log In</button></div>
             </form>
     </div>

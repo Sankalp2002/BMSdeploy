@@ -23,7 +23,7 @@ class Donor(models.Model):
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     bloodType = models.CharField(max_length=3)
 
-    def str(self):
+    def __str__(self):
         return self.donorId
 
 
@@ -41,5 +41,5 @@ class Donation(models.Model):
         max_length=1, choices=APPROVAL_CHOICES, default='P')
     quantity = models.PositiveIntegerField()
 
-    def str(self):
+    def __str__(self):
         return self.donationId

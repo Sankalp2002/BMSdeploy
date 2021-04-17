@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('Doctor/',include('Doctor.urls')),
     path('Admin/',include('Blood.urls')),
-
+    path('logout/',dviews.doclogout,name='doclogout'),
     # path('Patient/',include('Patient.urls')),
     # path('Donor/',include('Donor.urls'))
 ]

@@ -21,13 +21,11 @@ def doclogin(request):
 
         docuser=authenticate(username=username,password=password)
         if docuser:
-            login(request,docuser)
-            return HttpResponseRedirect(reverse('Doctor:docpanel'))
-            # if docuser.is_active:
-            #     login(request,docuser)
-            #     return HttpResponseRedirect(reverse('docpanel'))
-            # else:
-            #     return HttpResponse("Account not active")
+            if docuser.is_active:
+                login(request,docuser)
+                return HttpResponseRedirect(reverse('Doctor:docpanel'))
+            else:
+                return HttpResponse("Account not active")
         else:
             print("A login failed")
             return(HttpResponse("Invalid login details!"))
@@ -55,11 +53,23 @@ def docregister(request):
             docB.DocUser=docA
             docB.save()
             registered=True
-            # return home(request)
+            return HttpResponseRedirect(reverse('Doctor:doclogin'))
         else:
             print(docregisterformA.errors,docregisterformB.errors)
     else:
         formA=docregisterformA()
         formB=docregisterformB()
     return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
+
+@login_required
+def docpanel(request):
+    return render(request,'Doctor/doctorpanel.html')
+
+@login_required
+def docpanelrequest(request):
+    return render(request,'Doctor/doctorpanelrequest.html')
+
+@login_required
+def docpaneldonor(request):
+    return render(request,'Doctor/doctorpaneldonor.html')
 

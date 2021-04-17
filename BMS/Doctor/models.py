@@ -12,7 +12,7 @@ class Hospital(models.Model):
     name = models.CharField(max_length=32)
     address = models.CharField(max_length=128)
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -38,5 +38,5 @@ class Doctor(models.Model):
     #     max_length=32, help_text="Enter your username", primary_key=True)
     # password = models.CharField(max_length=1024, help_text="Atleast one each of digit,alphabet,special character required")
     #USERNAME_FIELD='username'
-    def str(self):
+    def __str__(self):
         return self.DocUser.username
