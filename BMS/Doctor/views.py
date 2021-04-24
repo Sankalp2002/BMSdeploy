@@ -1,10 +1,11 @@
 from django.shortcuts import render
 # from Doctor.views import docpanel
 from Doctor.forms import docregisterformA,docregisterformB
-from Blood.views import home
+from Donor.forms import NewDonorForm
+from Blood.views import home,adminpanel
 from . import forms
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
 #from django.http import HttpResponse
@@ -21,7 +22,10 @@ def doclogin(request):
 
         docuser=authenticate(username=username,password=password)
         if docuser:
-            if docuser.is_active:
+            if docuser.is_active and docuser.is_superuser:
+                login(request,docuser)
+                return HttpResponseRedirect(reverse('Blood:adminpanel'))
+            elif docuser.is_active:
                 login(request,docuser)
                 return HttpResponseRedirect(reverse('Doctor:docpanel'))
             else:
@@ -62,26 +66,40 @@ def docregister(request):
     return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
 
 @login_required
+#@user_passes_test(lambda u:not u.is_superuser)
 def docpanel(request):
     return render(request,'Doctor/doctorpanel.html')
 
 @login_required
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelrequest(request):
     return render(request,'Doctor/doctorpanelrequest.html')
 
 @login_required
+#@user_passes_test(lambda u:not u.is_superuser)
 def docpaneldonor(request):
-    return render(request,'Doctor/doctorpaneldonor.html')
+    form=NewDonorForm()
+    if request.method=="POST":
+        form= NewDonorForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return docpanel(request)
+        else:
+            print('Error')
+    return render(request,'Doctor/doctorpaneldonor.html',{'form':form})
 
 @login_required
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelpatient(request):
     return render(request,'Doctor/doctorpanelpatient.html')
 
 @login_required
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelplist(request):
     return render(request,'Doctor/doctorpanelpatientlist.html')
 
 @login_required
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelrlist(request):
     return render(request,'Doctor/doctorpanelrequestlist.html')
 
