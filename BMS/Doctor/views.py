@@ -2,6 +2,7 @@ from django.shortcuts import render
 # from Doctor.views import docpanel
 from Doctor.forms import docregisterformA,docregisterformB
 from Donor.forms import NewDonorForm
+from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
 from . import forms
 from django.urls import reverse
@@ -52,8 +53,6 @@ def docregister(request):
             docA.set_password(docA.password)
             docA.save()
             docB=formB.save(commit=False)
-            var=formA.cleaned_data['username']
-            print(docA)
             docB.DocUser=docA
             docB.save()
             registered=True
@@ -89,9 +88,17 @@ def docpaneldonor(request):
     return render(request,'Doctor/doctorpaneldonor.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+#@user_passes_test(lambda u:not u.is_superuser)
 def docpanelpatient(request):
-    return render(request,'Doctor/doctorpanelpatient.html')
+    form=NewPatientForm()
+    if request.method=="POST":
+        form= NewPatientForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return docpanel(request)
+        else:
+            print('Error')
+    return render(request,'Doctor/doctorpanelpatient.html',{'form':form})
 
 @login_required
 @user_passes_test(lambda u:not u.is_superuser)
