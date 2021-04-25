@@ -1,7 +1,6 @@
 # Patient
 from django.db import models
 from Doctor import models as dmodels
-from phone_field import PhoneField
 # Create your models here.
 
 
@@ -23,12 +22,12 @@ class Patient(models.Model):
     )
     patientId = models.AutoField(primary_key=True)
     doctorId = models.CharField(max_length=128)
-    name = models.CharField(max_length=32)
-    address = models.CharField(max_length=128)
-    phone = PhoneField(unique=True)
-    email = models.EmailField(max_length=32)
-    age = models.PositiveIntegerField(default=18)
+    name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
+    age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
+    address = models.CharField(max_length=128, help_text="Enter your address")
+    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
+    email = models.EmailField(max_length=32)
     bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
 
     def __str__(self):

@@ -1,8 +1,5 @@
 # Doctor
 from django.db import models
-from phone_field import PhoneField
-# from django.contrib.auth.models import AbstractBaseUser
-# from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -28,7 +25,7 @@ class Doctor(models.Model):
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
     address = models.CharField(max_length=128, help_text="Enter your address")
-    phone = PhoneField( help_text="Enter your phone number")
+    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
     # email = models.EmailField(
     #     max_length=32, help_text="Enter your email address")
     degree = models.CharField(max_length=32, help_text="Enter your Degree")

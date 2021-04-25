@@ -3,6 +3,7 @@ from django import forms
 from Doctor.models import Doctor
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+import re
 
 class docregisterformA(forms.ModelForm):
     password=forms.CharField(widget=forms.PasswordInput())
@@ -20,6 +21,15 @@ class docregisterformB(forms.ModelForm):
             raise ValidationError(('You are gonna die soon'))
         if data<18:
             raise ValidationError(('Too young to be a doctor'))
+        return data
+
+    def clean_phone(self):
+        data=self.cleaned_data['phone']
+        reg="^(\d{10})$"
+        if len(data)==10 and re.search(reg, data):
+            print("valid")
+        else:
+            raise ValidationError(('Mobile Number must have 10 digits'))
         return data
 
     def clean_password(self):

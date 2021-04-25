@@ -41,16 +41,16 @@ class BloodRequest(models.Model):
         ('AB-', 'AB-'),
     )
     requestId = models.AutoField(primary_key=True)
-    patientId = models.ForeignKey(pmodels.Patient, on_delete=models.CASCADE)
+    patientId = models.ForeignKey(pmodels.Patient, on_delete=models.CASCADE,help_text="Patient")
     doctorId = models.CharField(max_length=128)
     date = models.DateField(default=datetime.date.today)
-    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
+    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required")
     isApproved = models.CharField(
         max_length=1, choices=APPROVAL_CHOICES, default='P')
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(help_text="Enter quantity of Blood required")
 
     def __str__(self):
-        return self.requestId
+        return str(self.requestId)
 
     class Meta:
         get_latest_by = "-self.date"
