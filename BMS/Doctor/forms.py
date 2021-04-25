@@ -13,6 +13,15 @@ class docregisterformA(forms.ModelForm):
         fields=('username','email','password')
 
 class docregisterformB(forms.ModelForm):
+
+    def clean_age(self):
+        data=self.cleaned_data['age']
+        if data>80:
+            raise ValidationError(_('You are gonna die soon'))
+        if data<18:
+            raise ValidationError(_('Too young to be a doctor'))
+        return data
+
     class Meta():
         model=Doctor
         fields=('name','age','sex','address','phone','degree','hospitalId')

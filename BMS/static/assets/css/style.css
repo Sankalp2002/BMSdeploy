@@ -1,5 +1,5 @@
 .login-dark {
-  height:1000px;
+  min-height: 100%;
   background:#475d62 url(../../images/wp2778213-blood-wallpaper.jpg);
   background-size:cover;
   position:relative;
@@ -7,6 +7,7 @@
 
 .login-dark form {
   max-width:320px;
+  max-height: 100%;
   width:90%;
   background-color:#1e2833;
   padding:40px;
