@@ -18,7 +18,6 @@
         <div class="form-group">{{ form.phone|as_crispy_field }}</div>
         <div class="form-group">{{ form.email|as_crispy_field }}</div>
         <div class="form-group">{{ form.bloodType|as_crispy_field }}</div>
-        <div class="form-group">{{ form.doctorId|as_crispy_field }}</div>
         {% csrf_token %}
         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
       </form>
