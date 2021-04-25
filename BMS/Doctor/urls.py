@@ -11,6 +11,7 @@ urlpatterns=[
     path('Register/',views.docregister,name='docregister'),
     path('Panel/',views.docpanel,name='docpanel'),
     path('Panel/NewRequest',views.docpanelrequest,name='docpanelrequest'),
+    path('Panel/NewDonation',views.docpanelnewdon,name='docpanelnewdon'),
     path('Panel/Donor',views.docpaneldonor,name='docpaneldonor'),
     path('Panel/NewPatient',views.docpanelpatient,name='docpanelpatient'),
     path('Panel/Patients',views.docpanelplist,name='docpanelplist'),

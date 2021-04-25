@@ -12,7 +12,7 @@ class Patient(models.Model):
         ('O', 'Other'),
     )
     patientId = models.AutoField(primary_key=True)
-    doctorId = models.ForeignKey(dmodels.Doctor, on_delete=models.CASCADE)
+    doctorId = models.CharField(max_length=128)
     name = models.CharField(max_length=32)
     address = models.CharField(max_length=128)
     phone = PhoneField(unique=True)

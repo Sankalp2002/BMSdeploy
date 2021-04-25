@@ -14,8 +14,8 @@ class Donor(models.Model):
         ('O', 'Other'),
     )
     donorId = models.AutoField(primary_key=True)
-    doctorId = models.ForeignKey(dmodels.Doctor, on_delete=models.CASCADE)
-    name = models.CharField(max_length=32)
+    doctorId = models.CharField(max_length=128)
+    name = models.CharField(max_length=32,unique=True)
     address = models.CharField(max_length=128)
     phone = PhoneField(unique=True)
     email = models.EmailField(max_length=32)
@@ -34,7 +34,8 @@ class Donation(models.Model):
         ('P', 'Pending'),
     )
     donationId = models.AutoField(primary_key=True)
-    donorId = models.ForeignKey(Donor, on_delete=models.CASCADE)
+    #donorId = models.ForeignKey(Donor, on_delete=models.CASCADE)
+    donorName =  models.ForeignKey(Donor, to_field='name', on_delete=models.CASCADE, default="Anonymous")
     date = models.DateField(default=datetime.date.today)
     bloodType = models.CharField(max_length=3)
     isApproved = models.CharField(
@@ -42,4 +43,4 @@ class Donation(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.donationId
+        return str(self.donorName)

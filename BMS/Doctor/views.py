@@ -1,9 +1,12 @@
 from django.shortcuts import render
+from django.db import models
 # from Doctor.views import docpanel
 from Doctor.forms import docregisterformA,docregisterformB
-from Donor.forms import NewDonorForm
+from Donor.forms import NewDonorForm,NewDonationForm
+from Blood.forms import NewRequestForm
 from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
+from Donor.models import Donor,Donation
 from . import forms
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -72,7 +75,34 @@ def docpanel(request):
 @login_required
 @user_passes_test(lambda u:not u.is_superuser)
 def docpanelrequest(request):
-    return render(request,'Doctor/doctorpanelrequest.html')
+    form=NewRequestForm()
+    if request.method=="POST":
+        form= NewRequestForm(request.POST)
+        if form.is_valid():
+            req=form.save(commit=False)
+            req.doctorId=request.user.username
+            req.save()
+            return docpanel(request)
+        else:
+            print('Error')
+    return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
+
+@login_required
+#@user_passes_test(lambda u:not u.is_superuser)
+def docpanelnewdon(request):
+    form=NewDonationForm()
+    if request.method=="POST":
+        form= NewDonationForm(request.POST)
+        if form.is_valid():
+            donat=form.save(commit=False)
+            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=@donat.donarName'):
+                print(p)
+            # dona.=request.user.username
+            donat.save()
+            return docpanel(request)
+        else:
+            print('Error')
+    return render(request,'Doctor/doctorpanelnewdon.html',{'form':form})
 
 @login_required
 #@user_passes_test(lambda u:not u.is_superuser)
@@ -81,7 +111,9 @@ def docpaneldonor(request):
     if request.method=="POST":
         form= NewDonorForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            don=form.save(commit=False)
+            don.doctorId=request.user.username
+            don.save()
             return docpanel(request)
         else:
             print('Error')
@@ -94,7 +126,9 @@ def docpanelpatient(request):
     if request.method=="POST":
         form= NewPatientForm(request.POST)
         if form.is_valid():
-            form.save(commit=True)
+            pat=form.save(commit=False)
+            pat.doctorId=request.user.username
+            pat.save()
             return docpanel(request)
         else:
             print('Error')
