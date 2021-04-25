@@ -70,7 +70,7 @@ def docregister(request):
     return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanel(request):
     return render(request,'Doctor/doctorpanel.html')
 
@@ -90,7 +90,7 @@ def docpanelrequest(request):
     return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelnewdon(request):
     form=NewDonationForm()
     if request.method=="POST":
@@ -109,7 +109,7 @@ def docpanelnewdon(request):
     return render(request,'Doctor/doctorpanelnewdon.html',{'form':form})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpaneldonor(request):
     form=NewDonorForm()
     if request.method=="POST":
@@ -124,7 +124,7 @@ def docpaneldonor(request):
     return render(request,'Doctor/doctorpaneldonor.html',{'form':form})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelpatient(request):
     form=NewPatientForm()
     if request.method=="POST":
@@ -139,13 +139,13 @@ def docpanelpatient(request):
     return render(request,'Doctor/doctorpanelpatient.html',{'form':form})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelplist(request):
     patients=Patient.objects.filter(doctorId=request.user.username)
     return render(request,'Doctor/doctorpanelpatientlist.html',{'patients':patients})
 
 @login_required
-#@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser)
 def docpanelrlist(request):
     requests=BloodRequest.objects.filter(doctorId=request.user.username)
     return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
