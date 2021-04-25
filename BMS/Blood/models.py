@@ -7,7 +7,17 @@ import datetime
 
 
 class BloodInventory(models.Model):
-    bloodType = models.CharField(max_length=3, primary_key=True)
+    BLOOD_GROUP_CHOICES = (
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+    )
+    bloodType = models.CharField(max_length=3, primary_key=True,choices=BLOOD_GROUP_CHOICES)
     unit = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -20,11 +30,21 @@ class BloodRequest(models.Model):
         ('N', 'No'),
         ('P', 'Pending'),
     )
+    BLOOD_GROUP_CHOICES = (
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+    )
     requestId = models.AutoField(primary_key=True)
     patientId = models.ForeignKey(pmodels.Patient, on_delete=models.CASCADE)
     doctorId = models.CharField(max_length=128)
     date = models.DateField(default=datetime.date.today)
-    bloodType = models.CharField(max_length=3)
+    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
     isApproved = models.CharField(
         max_length=1, choices=APPROVAL_CHOICES, default='P')
     quantity = models.PositiveIntegerField()
