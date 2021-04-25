@@ -6,7 +6,7 @@ from Donor.forms import NewDonorForm,NewDonationForm
 from Blood.forms import NewRequestForm
 from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
-from Donor.models import Donor,Donation
+from Donor.models import Donor
 from . import forms
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -95,9 +95,11 @@ def docpanelnewdon(request):
         form= NewDonationForm(request.POST)
         if form.is_valid():
             donat=form.save(commit=False)
-            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=@donat.donorName'):
-                print(str(p.bloodType))
-            # dona.=request.user.username
+            strn=str(donat.donorName)
+            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=' +'\'' + strn +'\'' ):
+                print(p.bloodType)
+                strb=p.bloodType
+            donat.bloodType=strb
             donat.save()
             return docpanel(request)
         else:
