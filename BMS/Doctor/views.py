@@ -95,8 +95,8 @@ def docpanelnewdon(request):
         form= NewDonationForm(request.POST)
         if form.is_valid():
             donat=form.save(commit=False)
-            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=@donat.donarName'):
-                print(p)
+            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=@donat.donorName'):
+                print(str(p.bloodType))
             # dona.=request.user.username
             donat.save()
             return docpanel(request)
