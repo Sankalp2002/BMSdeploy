@@ -1,6 +1,6 @@
-{% extends "Blood/adminbase.html" %}
+{% extends "Doctor/doctorbase.html" %}
 {% block title %}
-  <title>Admin: Patient</title>
+  <title>My Patients</title>
 {% endblock %}
 {% block content %}
 
@@ -23,7 +23,7 @@
             {% for t in patients %}
             <tr>
                 <td> {{t.get_name}}</td>
-                <td> <img src="{% static t.profile_pic.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+                <td> <img src="" alt="Profile Pic" height="40px" width="40px" /></td>
                 <td>{{t.bloodgroup}}</td>
                 <td>{{t.age}}</td>
                 <td>{{t.disease}}</td>

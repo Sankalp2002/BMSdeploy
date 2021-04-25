@@ -1,16 +1,15 @@
 {% extends "Doctor/doctorbase.html" %}
 {% load static %}
 {% block title %}
-  <title>Add Donor</title>
+  <title>New Patient</title>
 {% endblock %}
-
 {% block content %}
 {% load crispy_forms_tags %}
-<link rel="stylesheet" href="{% static 'assets/css/style.css' %}"/>
+
 <br><br>
 <div class="login-dark">
     <form method="post">
-        <h2 class="header">Donor Registration</h2>
+        <h2 class="header">Patient Registration</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
         <div class="form-group">{{ form.name|as_crispy_field }}</div>
         <div class="form-group">{{ form.age|as_crispy_field }}</div>
@@ -19,10 +18,11 @@
         <div class="form-group">{{ form.phone|as_crispy_field }}</div>
         <div class="form-group">{{ form.email|as_crispy_field }}</div>
         <div class="form-group">{{ form.bloodType|as_crispy_field }}</div>
-        
+        <div class="form-group">{{ form.doctorId|as_crispy_field }}</div>
         {% csrf_token %}
         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
       </form>
   </div>
+
 
 {% endblock %}

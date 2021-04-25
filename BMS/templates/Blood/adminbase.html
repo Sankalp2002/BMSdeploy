@@ -175,7 +175,7 @@ body{
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" style="color: white;" href="/logout">Logout &nbsp; <i class="fas fa-sign-out-alt"></i></a>
+                    <a class="nav-link" style="color: white;" href="{%url 'adminlogout' %}">Logout &nbsp; <i class="fas fa-sign-out-alt"></i></a>
                 </li>
                 
             </ul>
@@ -186,7 +186,7 @@ body{
     <div class="sidebar">
         
         <ul>
-            <li><a style="text-decoration:none;" href="{%url 'Blood:adminpanelpatients' %}"><i class="fas fa-home"></i>Patients</a></li>
+            <li><a style="text-decoration:none;" href="{%url 'Blood:adminpanelpatients' %}"><i class="fas fa-user-injured"></i>Patients</a></li>
             <li><a style="text-decoration:none;" href="{%url 'Blood:adminpaneldonors' %}"><i class="fas fa-user"></i>Donors</a></li>
             <li><a style="text-decoration:none;" href="{%url 'Blood:adminpaneldoctor' %}"><i class="fas fa-briefcase-medical"></i>Doctor</a></li>
             <li><a style="text-decoration:none;" href="{%url 'Blood:adminpaneldonations' %}"><i class="fas fa-hand-holding-medical"></i>Donations</a></li>

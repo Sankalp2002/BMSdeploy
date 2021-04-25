@@ -38,5 +38,9 @@ class Doctor(models.Model):
     #     max_length=32, help_text="Enter your username", primary_key=True)
     # password = models.CharField(max_length=1024, help_text="Atleast one each of digit,alphabet,special character required")
     #USERNAME_FIELD='username'
+    class Meta:
+        permissions=(
+            ("doctor_permission","Can do the doctor's work"),
+        )
     def __str__(self):
         return self.DocUser.username
