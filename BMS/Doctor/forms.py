@@ -6,14 +6,9 @@ from django.core.exceptions import ValidationError
 import re
 
 class docregisterformA(forms.ModelForm):
-<<<<<<< HEAD
     password=forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-=======
-    password=forms.CharField(widget=forms.PasswordInput())
-    email = forms.EmailField(widget=forms.EmailInput())
-    username = forms.CharField(widget=forms.TextInput())
     def clean_password(self):
         data=self.cleaned_data['password']
         if len(data)<8:
@@ -26,7 +21,6 @@ class docregisterformA(forms.ModelForm):
         if not any(char in special_characters for char in password):
             raise ValidationError(('Password must contain at least 1 special character'))
         return data
->>>>>>> 4e070737a8d82f1e28d710cdb8b5f7192820fc37
     class Meta:
         model=User
         fields=('username','email','password')
