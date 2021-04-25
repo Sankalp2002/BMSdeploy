@@ -40,7 +40,8 @@ def adminlogout(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanel(request):
-    return render(request,'Blood/adminpanel.html')
+    inventory=BloodInventory.objects.all()
+    return render(request,'Blood/adminpanel.html',{'inventory':inventory})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
