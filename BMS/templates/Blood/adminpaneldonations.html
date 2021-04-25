@@ -12,11 +12,10 @@
         <thead class="bg-info">
             <tr>
                 <th scope="col">Donation ID</th>
-                <th scope="col">Donor ID</th>
-                <th scope="col">Age</th>
+                <th scope="col">Donor Name</th>
+                <th scope="col">Date</th>
                 <th scope="col">Blood Group</th>
-                <th scope="col">Unit</th>
-                <th scope="col">Donation Date</th>
+                <th scope="col">Units</th>
                 <th scope="col">Status</th>
                 <th class="text-right">Action</th>
             </tr>
@@ -24,20 +23,19 @@
         <tbody>
             {% for t in donations %}
             <tr>
-                <td> {{t.donor}}</td>
-                <td> {{t.disease}}</td>
-                <td> {{t.age}}</td>
-                <td>{{t.bloodgroup}}</td>
-                <td>{{t.unit}}</td>
+                <td> {{t.donationId}}</td>
+                <td> {{t.donorName}}</td>
                 <td>{{t.date}}</td>
-                <td>{{t.status}}</td>
-                {% if t.status == 'Pending' %}
+                <td>{{t.bloodType}}</td>
+                <td>{{t.quantity}}</td>
+                <td>{{t.isApproved}}</td>
+                {% if t.isApproved == 'P' %}
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'approve-donation' t.id  %}">APPROVE</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'reject-donation' t.id  %}">REJECT</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">APPROVE</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">REJECT</a> </button>
                 </td>
-                {% elif  t.status == 'Approved' %}
-                <td><span class="label warning">{{t.unit}} Unit Added To Stock</span></td>
+                {% elif  t.isApproved == 'Y' %}
+                <td><span class="label warning">{{t.quantity}} Unit Added To Stock</span></td>
 
                 {% else %}
                 <td><span class="label danger">0 Unit Added To Stock</span></td> 

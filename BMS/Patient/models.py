@@ -22,4 +22,4 @@ class Patient(models.Model):
     bloodType = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.patientId
+        return self.name
