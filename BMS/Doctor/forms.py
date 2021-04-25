@@ -3,11 +3,30 @@ from django import forms
 from Doctor.models import Doctor
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+import re
 
 class docregisterformA(forms.ModelForm):
+<<<<<<< HEAD
     password=forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+=======
+    password=forms.CharField(widget=forms.PasswordInput())
+    email = forms.EmailField(widget=forms.EmailInput())
+    username = forms.CharField(widget=forms.TextInput())
+    def clean_password(self):
+        data=self.cleaned_data['password']
+        if len(data)<8:
+            raise ValidationError(('Password is too short'))
+        special_characters = "['~','!','@','#','$','%','&','*','_',';']"
+        if not any(char.isdigit() for char in data):
+            raise ValidationError(('Password must contain at least 1 digit'))
+        if not any(char.isalpha() for char in password):
+            raise ValidationError(('Password must contain at least 1 alphabet'))
+        if not any(char in special_characters for char in password):
+            raise ValidationError(('Password must contain at least 1 special character'))
+        return data
+>>>>>>> 4e070737a8d82f1e28d710cdb8b5f7192820fc37
     class Meta:
         model=User
         fields=('username','email','password')
@@ -22,17 +41,13 @@ class docregisterformB(forms.ModelForm):
             raise ValidationError(('Too young to be a doctor'))
         return data
 
-    def clean_password(self):
-        data=self.cleaned_data['password']
-        if len(data)<8:
-            raise ValidationError(('Password is too short'))
-        special_characters = "['~','!','@','#','$','%','&','*','_',';']"
-        if not any(char.isdigit() for char in data):
-            raise ValidationError(('Password must contain at least 1 digit'))
-        if not any(char.isalpha() for char in password):
-            raise ValidationError(('Password must contain at least 1 alphabet'))
-        if not any(char in special_characters for char in password):
-            raise ValidationError(('Password must contain at least 1 special character'))
+    def clean_phone(self):
+        data=self.cleaned_data['phone']
+        reg="^(\d{10})$"
+        if len(data)==10 and re.search(reg, data):
+            print("valid")
+        else:
+            raise ValidationError(('Mobile Number must have 10 digits'))
         return data
 
     class Meta():

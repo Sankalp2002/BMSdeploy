@@ -1,4 +1,6 @@
 {% extends "Doctor/doctorbase.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
   <title>Post Request</title>
 {% endblock %}
@@ -6,59 +8,19 @@
 
 
 <br><br>
-<div class="container">
-    {% if requests %}
-    <H4 class="text-center">Blood Requested</H4><br>
-    {% if message %}
-   <h5 class="text-center" style="color: red;"> {{message}}</h5><br>
-{% else %}
-
-{% endif %}
-    <table class="table table-light table-hover table-bordered table-striped">
-        <thead class="bg-info">
-            <tr>
-                <th scope="col">Request ID</th>
-                <th scope="col">Patient ID</th>
-                
-                <th scope="col">Doctor ID</th>
-                <th scope="col">Blood Group</th>
-                <th scope="col">Unit (in ml)</th>
-                <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th class="text-right">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for t in requests %}
-            <tr>
-                <td> {{t.patient_name}}</td>
-                <td>{{t.patient_age}}</td>
-                
-                
-                <td>{{t.reason}}</td>
-                <td>{{t.bloodgroup}}</td>
-                <td>{{t.unit}}</td>
-                <td>{{t.date}}</td>
-                <td>{{t.status}}</td>
-                
-                
-                <td class="text-right">
-                   
-                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-approve-status' t.id  %}">Approve</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-reject-status' t.id  %}">Reject</a> </button>
-                    
-                </td>
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    
-    </table>
-{% else %}
-<h5>No Blood Request By Patient / Donor !</h5>
-{% endif %}
-
-</div>
+<div class="login-dark">
+    <form method="post">
+        <h2 class="header">New Request</h2>
+       <div class="illustration"><i class="icon ion-clipboard"></i></div>
+        <div class="form-group">{{ form.patientId|as_crispy_field }}</div>
+        <div class="form-group">{{ form.date|as_crispy_field }}</div>
+        <div class="form-group">{{ form.bloodType|as_crispy_field }}</div>
+        <div class="form-group">{{ form.quantity|as_crispy_field }}</div>
+        
+        {% csrf_token %}
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Post</button></div>
+      </form>
+  </div>
 
 
 {% endblock %}

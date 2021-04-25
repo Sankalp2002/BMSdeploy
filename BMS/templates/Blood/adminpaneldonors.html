@@ -15,22 +15,29 @@
                 <th scope="col">Doctor ID</th>
                 <th scope="col">Blood Group</th>
                 <th scope="col">Address</th>
-                <th scope="col">Mobile</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Age</th>
                 <th class="text-right">Action</th>
             </tr>
         </thead>
         <tbody>
             {% for t in donors %}
             <tr>
-                <td> {{t.get_name}}</td>
-                <td> <img src="" alt="Profile Pic" height="40px" width="40px" /></td>
-                <td>{{t.bloodgroup}}</td>
-                <td>{{t.address}}</td>
-                <td>{{t.mobile}}</td>
+                <td> {{t.name}}</td>
+                <td>{{t.donorId}}</td>
+                <td>{{t.doctorID}}</td>
+                <td>{{t.bloodType}}</td>
+                <td> {{t.address}}</td>
+                <td>{{t.phone}}</td>
+                <td>{{t.email}}</td>
+                <td>{{t.sex}}</td>
+                <td>{{t.age}}</td>
                 
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-donor' t.id  %}">EDIT</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'delete-donor' t.id  %}">DELETE</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">DELETE</a> </button>
                 </td>
             </tr>
             {% endfor %}

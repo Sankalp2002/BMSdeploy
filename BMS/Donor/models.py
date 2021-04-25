@@ -2,7 +2,6 @@
 from django.db import models
 from Doctor import models as dmodels
 from Blood import models as bmodels
-from phone_field import PhoneField
 import datetime
 # Create your models here.
 
@@ -13,15 +12,25 @@ class Donor(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     )
+    BLOOD_GROUP_CHOICES = (
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+    )
     donorId = models.AutoField(primary_key=True)
-    doctorId = models.ForeignKey(dmodels.Doctor, on_delete=models.CASCADE)
-    name = models.CharField(max_length=32)
-    address = models.CharField(max_length=128)
-    phone = PhoneField(unique=True)
+    doctorId = models.CharField(max_length=128)
+    name = models.CharField(max_length=32,unique=True,help_text="Enter your name")
+    age = models.PositiveIntegerField(default=18, help_text="Enter your age")
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
+    address = models.CharField(max_length=128, help_text="Enter your address")
+    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
     email = models.EmailField(max_length=32)
-    age = models.PositiveIntegerField(default=18)
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
-    bloodType = models.CharField(max_length=3)
+    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
 
     def __str__(self):
         return self.name
@@ -34,7 +43,8 @@ class Donation(models.Model):
         ('P', 'Pending'),
     )
     donationId = models.AutoField(primary_key=True)
-    donorId = models.ForeignKey(Donor, on_delete=models.CASCADE)
+    #donorId = models.ForeignKey(Donor, on_delete=models.CASCADE)
+    donorName =  models.ForeignKey(Donor, to_field='name', on_delete=models.CASCADE, default="Anonymous")
     date = models.DateField(default=datetime.date.today)
     bloodType = models.CharField(max_length=3)
     isApproved = models.CharField(
@@ -42,4 +52,4 @@ class Donation(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.donationId
+        return str(self.donorName)

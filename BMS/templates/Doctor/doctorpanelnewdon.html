@@ -1,0 +1,25 @@
+{% extends "Doctor/doctorbase.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+  <title>New Donation</title>
+{% endblock %}
+{% block content %}
+
+
+<br><br>
+<div class="login-dark">
+    <form method="post">
+        <h2 class="header">New Donation</h2>
+       <div class="illustration"><i class="icon ion-clipboard"></i></div>
+        <div class="form-group">{{ form.donorName|as_crispy_field }}</div>
+        <div class="form-group">{{ form.date|as_crispy_field }}</div>
+        <div class="form-group">{{ form.quantity|as_crispy_field }}</div>
+        
+        {% csrf_token %}
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Post</button></div>
+      </form>
+  </div>
+
+
+{% endblock %}

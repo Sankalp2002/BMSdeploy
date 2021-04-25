@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from Doctor.models import Doctor
+from Donor.models import Donor,Donation
+from Patient.models import Patient
+from Blood.models import BloodRequest,BloodInventory
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
@@ -36,29 +40,35 @@ def adminlogout(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanel(request):
-    return render(request,'Blood/adminpanel.html')
+    inventory=BloodInventory.objects.all()
+    return render(request,'Blood/adminpanel.html',{'inventory':inventory})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpaneldoctor(request):
-    return render(request,'Blood/adminpaneldoctor.html')
+    doctors=Doctor.objects.all()
+    return render(request,'Blood/adminpaneldoctor.html',{'doctors':doctors})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpaneldonations(request):
-    return render(request,'Blood/adminpaneldonations.html')
+    donations=Donation.objects.all()
+    return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpaneldonors(request):
-    return render(request,'Blood/adminpaneldonors.html')
+    donors=Donor.objects.all()
+    return render(request,'Blood/adminpaneldonors.html',{'donors':donors})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanelpatients(request):
-    return render(request,'Blood/adminpanelpatients.html')
+    patients=Patient.objects.all()
+    return render(request,'Blood/adminpanelpatients.html',{'patients':patients})
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanelrequests(request):
-    return render(request,'Blood/adminpanelrequests.html')
+    requests=BloodRequest.objects.all()
+    return render(request,'Blood/adminpanelrequests.html',{'requests':requests})

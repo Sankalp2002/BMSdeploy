@@ -11,31 +11,34 @@
         <thead class="bg-info">
             <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Doctor ID</th>
+                <!-- <th scope="col">Doctor ID</th> -->
                 <th scope="col">Hospital ID</th>
                 <th scope="col">Age</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Address</th>
                 <th scope="col">Phone</th>
                 <th class="text-right">Degree</th>
             </tr>
         </thead>
-        <!-- <tbody>
-            {% for t in patients %}
+        <tbody>
+            {% for t in doctors %}
             <tr>
-                <td> {{t.get_name}}</td>
-                <td> <img src="" alt="Profile Pic" height="40px" width="40px" /></td>
-                <td>{{t.bloodgroup}}</td>
+                <td> {{t.name}}</td>
+                <td>{{t.hospitalId}}</td>
                 <td>{{t.age}}</td>
-                <td>{{t.disease}}</td>
-                <td>{{t.mobile}}</td>
+                <td>{{t.sex}}</td>
+                <td>{{t.address}}</td>
+                <td>{{t.phone}}</td>
+                <td>{{t.degree}}</td>
                 
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'update-patient' t.id  %}">EDIT</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'delete-patient' t.id  %}">DELETE</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">DELETE</a> </button>
                 </td>
             </tr>
             {% endfor %}
 
-        </tbody> -->
+        </tbody>
     
     </table>
 </div>

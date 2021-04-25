@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'Doctor',
     'Donor',
     'Patient',
-    'phone_field',
     'crispy_forms'
 ]
 # AUTH_USER_MODEL = 'Doctor.Doctor'
