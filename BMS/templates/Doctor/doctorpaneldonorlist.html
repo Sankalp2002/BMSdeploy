@@ -1,9 +1,9 @@
-{% extends "Blood/adminbase.html" %}
+{% extends "Doctor/doctorbase.html" %}
+{% load static %}
 {% block title %}
-  <title>Admin: Donors</title>
+  <title>Donors</title>
 {% endblock %}
 {% block content %}
-
 <br><br>
 <div class="container">
     <H4 class="text-center">DONOR DETAILS</H4><br>
@@ -12,13 +12,13 @@
             <tr>
                 <th scope="col">Donor</th>
                 <th scope="col">Name</th>
-                <th scope="col">Doctor</th>
                 <th scope="col">Blood</th>
                 <th scope="col">Address</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 <th scope="col">Sex</th>
                 <th scope="col">Age</th>
+                <th class="text-right">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,6 @@
             <tr>
                 <td>{{t.donorId}}</td>
                 <td> {{t.name}}</td>
-                <td>{{t.doctorId}}</td>
                 <td>{{t.bloodType}}</td>
                 <td> {{t.address}}</td>
                 <td>{{t.phone}}</td>
@@ -34,6 +33,10 @@
                 <td>{{t.sex}}</td>
                 <td>{{t.age}}</td>
                 
+                <td class="text-right">
+                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:deldonview' t.donorId %}">DELETE</a> </button>
+                </td>
             </tr>
             {% endfor %}
 

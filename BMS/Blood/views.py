@@ -144,3 +144,12 @@ def delpatview(request,pid):
     Patient.objects.get(patientId=pid).delete()
     patients=Patient.objects.all()
     return render(request,'Blood/adminpanelpatients.html',{'patients':patients})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def appdocview(request,did):
+    obj=Doctor.objects.get(DocUser_id=did)
+    obj.isApproved='Y'
+    obj.save()
+    doctors=Doctor.objects.all()
+    return render(request,'Blood/adminpaneldoctor.html',{'doctors':doctors})

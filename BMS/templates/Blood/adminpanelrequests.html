@@ -40,7 +40,7 @@
                     <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:rejreqview' t.requestId %}">Reject</a> </button>
                 </td>
                 {% elif  t.isApproved == 'Y' %}
-                <td><span class="label warning">{{t.quantity}} Units provided To {{t.patientId}}</span></td>
+                <td><span class="label success">{{t.quantity}} Units provided To {{t.patientId}}</span></td>
 
                 {% else %}
                 <td><span class="label danger">Rejected</span></td> 

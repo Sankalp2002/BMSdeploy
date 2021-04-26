@@ -20,21 +20,19 @@ class Doctor(models.Model):
         ('F', 'Female'),
         ('O', 'Other'),
     )
-    #id = models.BigAutoField(primary_key=True)
+    APPROVAL_CHOICES = (
+        ('Y', 'Yes'),
+        ('P', 'Pending'),
+    )
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
     address = models.CharField(max_length=128, help_text="Enter your address")
     phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
-    # email = models.EmailField(
-    #     max_length=32, help_text="Enter your email address")
+    isApproved = models.CharField(max_length=1, choices=APPROVAL_CHOICES, default='P')
     degree = models.CharField(max_length=32, help_text="Enter your Degree")
     hospitalId = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
-    # username = models.CharField(
-    #     max_length=32, help_text="Enter your username", primary_key=True)
-    # password = models.CharField(max_length=1024, help_text="Atleast one each of digit,alphabet,special character required")
-    #USERNAME_FIELD='username'
     class Meta:
         permissions=(
             ("doctor_permission","Can do the doctor's work"),

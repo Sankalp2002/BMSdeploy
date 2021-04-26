@@ -33,10 +33,17 @@
                 <td>{{t.phone}}</td>
                 <td>{{t.degree}}</td>
                 
+                {% if t.isApproved == 'P' %}
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:deldocview' t.DocUser_id %}">DELETE</a> </button>
+                    <button class="btn-sm btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:appdocview' t.DocUser_id %}">APPROVE</a> </button>
+                    <button class="btn-sm btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn-sm btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:deldocview' t.DocUser_id %}">DELETE</a> </button>
                 </td>
+                {% else %}
+                <td class="text-right"><span class="label success">Approved</span>
+                <button class="btn-sm btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                <button class="btn-sm btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:deldocview' t.DocUser_id %}">DELETE</a> </button></td>
+                {% endif %}
             </tr>
             {% endfor %}
 

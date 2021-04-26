@@ -36,11 +36,16 @@
                 <td>{{t.date}}</td>
                 <td>{{t.isApproved}}</td>
 
+                {% if t.isApproved == 'P' %}
                 <td class="text-right">
-                   
-                    <button class="btn btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:cancelreq' t.requestId %}">Cancel</a> </button>
-                    
+                    <button class="btn btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:cancelreq' t.requestId %}">Cancel</a> </button>   
                 </td>
+                {% elif  t.isApproved == 'Y' %}
+                <td><span class="label success">Approved</span></td>
+
+                {% else %}
+                <td><span class="label danger">Rejected</span></td> 
+                {% endif %}
             </tr>
             {% endfor %}
 

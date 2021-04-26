@@ -8,6 +8,7 @@ from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
 from Donor.models import Donor
 from Patient.models import Patient
+from Doctor.models import Doctor
 from Blood.models import BloodRequest,BloodInventory
 from . import forms
 from django.urls import reverse
@@ -18,8 +19,6 @@ from django.contrib.auth import authenticate,login,logout
 # from Doctor.forms import docregisterform
 
 # Create your views here.
-# def docpanel(request):
-#     return render(request,'Doctor/doctorpanel.html',{})
 
 def doclogin(request):
     if request.method=='POST':
@@ -70,12 +69,12 @@ def docregister(request):
     return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanel(request):
     return render(request,'Doctor/doctorpanel.html')
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanelrequest(request):
     form=NewRequestForm()
     if request.method=="POST":
@@ -90,18 +89,13 @@ def docpanelrequest(request):
     return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanelnewdon(request):
     form=NewDonationForm()
     if request.method=="POST":
         form= NewDonationForm(request.POST)
         if form.is_valid():
             donat=form.save(commit=False)
-            # strn=str(donat.donorName)
-            # for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=' +'\'' + strn +'\'' ):
-            #     print(p.bloodType)
-            #     strb=p.bloodType
-            # donat.bloodType=strb
             obj=Donor.objects.get(name=donat.donorName)
             donat.bloodType=obj.bloodType
             donat.save()
@@ -111,7 +105,7 @@ def docpanelnewdon(request):
     return render(request,'Doctor/doctorpanelnewdon.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpaneldonor(request):
     form=NewDonorForm()
     if request.method=="POST":
@@ -126,7 +120,7 @@ def docpaneldonor(request):
     return render(request,'Doctor/doctorpaneldonor.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanelpatient(request):
     form=NewPatientForm()
     if request.method=="POST":
@@ -141,25 +135,40 @@ def docpanelpatient(request):
     return render(request,'Doctor/doctorpanelpatient.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanelplist(request):
     patients=Patient.objects.filter(doctorId=request.user.username)
     return render(request,'Doctor/doctorpanelpatientlist.html',{'patients':patients})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def docpanelrlist(request):
-    requests=BloodRequest.objects.filter(doctorId=request.user.username,isApproved='P')
+    requests=BloodRequest.objects.filter(doctorId=request.user.username).order_by('-requestId')
     return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
-def delpatview(request,pid):
-    Patient.objects.get(patientId=pid).delete()
-    return render(request,'Doctor/doctorpanelpatientlist.html')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def docpaneldlist(request):
+    donors=Donor.objects.filter(doctorId=request.user.username)
+    return render(request,'Doctor/doctorpaneldonorlist.html',{'donors':donors})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser)
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def delpatview(request,pid):
+    Patient.objects.get(patientId=pid).delete()
+    patients=Patient.objects.filter(doctorId=request.user.username)
+    return render(request,'Doctor/doctorpanelpatientlist.html',{'patients':patients})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def deldonview(request,pid):
+    Donor.objects.get(donorId=pid).delete()
+    donors=Donor.objects.filter(doctorId=request.user.username)
+    return render(request,'Doctor/doctorpaneldonorlist.html',{'donors':donors})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def cancelreq(request,rid):
     BloodRequest.objects.get(requestId=rid).delete()
-    return render(request,'Doctor/doctorpanelrequestlist.html')
+    requests=BloodRequest.objects.filter(doctorId=request.user.username,isApproved='P')
+    return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
