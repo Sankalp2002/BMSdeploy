@@ -10,14 +10,14 @@
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">
             <tr>
-                <th scope="col">Donor</th>
+                <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Blood</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Email</th>
-                <th scope="col">Sex</th>
                 <th scope="col">Age</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Blood</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
                 <th class="text-right">Action</th>
             </tr>
         </thead>
@@ -26,16 +26,16 @@
             <tr>
                 <td>{{t.donorId}}</td>
                 <td> {{t.name}}</td>
+                <td>{{t.age}}</td>
+                <td>{{t.sex}}</td>
                 <td>{{t.bloodType}}</td>
-                <td> {{t.address}}</td>
                 <td>{{t.phone}}</td>
                 <td>{{t.email}}</td>
-                <td>{{t.sex}}</td>
-                <td>{{t.age}}</td>
+                <td> {{t.address}}</td>
                 
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:deldonview' t.donorId %}">DELETE</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 80px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:deldonview' t.donorId %}">DELETE</a> </button>
                 </td>
             </tr>
             {% endfor %}

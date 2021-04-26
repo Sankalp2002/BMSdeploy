@@ -10,15 +10,15 @@
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">
             <tr>
-                <th scope="col">Donor</th>
+                <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Doctor</th>
-                <th scope="col">Blood</th>
-                <th scope="col">Address</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Email</th>
-                <th scope="col">Sex</th>
                 <th scope="col">Age</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Doctor ID</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
             </tr>
         </thead>
         <tbody>
@@ -26,13 +26,13 @@
             <tr>
                 <td>{{t.donorId}}</td>
                 <td> {{t.name}}</td>
-                <td>{{t.doctorId}}</td>
+                <td>{{t.age}}</td>
+                <td>{{t.sex}}</td>
                 <td>{{t.bloodType}}</td>
-                <td> {{t.address}}</td>
+                <td>{{t.doctorId}}</td>
                 <td>{{t.phone}}</td>
                 <td>{{t.email}}</td>
-                <td>{{t.sex}}</td>
-                <td>{{t.age}}</td>
+                <td> {{t.address}}</td>
                 
             </tr>
             {% endfor %}
