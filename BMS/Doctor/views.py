@@ -97,11 +97,13 @@ def docpanelnewdon(request):
         form= NewDonationForm(request.POST)
         if form.is_valid():
             donat=form.save(commit=False)
-            strn=str(donat.donorName)
-            for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=' +'\'' + strn +'\'' ):
-                print(p.bloodType)
-                strb=p.bloodType
-            donat.bloodType=strb
+            # strn=str(donat.donorName)
+            # for p in Donor.objects.raw('SELECT * FROM donor_donor WHERE name=' +'\'' + strn +'\'' ):
+            #     print(p.bloodType)
+            #     strb=p.bloodType
+            # donat.bloodType=strb
+            obj=Donor.objects.get(name=donat.donorName)
+            donat.bloodType=obj.bloodType
             donat.save()
             return docpanel(request)
         else:

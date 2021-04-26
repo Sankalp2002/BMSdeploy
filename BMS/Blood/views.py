@@ -75,21 +75,22 @@ def adminpanelrequests(request):
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
-def appreqview(request,rid):
-    obj=BloodRequest.objects.get(requestId=rid)
+def appreqview(request,qid):
+    obj=BloodRequest.objects.get(requestId=qid)
     btype=obj.bloodType
-    q=obj.quantity
     obj2=BloodInventory.objects.get(bloodType=btype)
-    # if obj2.unit<q:
-    #     requests=BloodRequest.objects.all()
-    #     return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
-    # else:
-    obj2.unit-=q
-    obj2.save()
-    obj.isApproved='Y'
-    obj.save()
-    requests=BloodRequest.objects.all().order_by('-requestId')
-    return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+    q=obj.quantity
+    if obj2.unit<q:
+        requests=BloodRequest.objects.all().order_by('-requestId')
+        return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+    else:
+        q=obj.quantity
+        obj2.unit-=q
+        obj2.save()
+        obj.isApproved='Y'
+        obj.save()
+        requests=BloodRequest.objects.all().order_by('-requestId')
+        return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
