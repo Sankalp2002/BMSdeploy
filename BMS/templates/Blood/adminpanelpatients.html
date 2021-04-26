@@ -27,7 +27,7 @@
             {% for t in patients %}
             <tr>
                 <td> {{t.patientId}}</td>
-                <td>{{t.Name}}</td>
+                <td>{{t.name}}</td>
                 <td>{{t.doctorId}}</td>
                 <td>{{t.age}}</td>
                 <td>{{t.sex}}</td>
@@ -38,7 +38,7 @@
                 
                 <td class="text-right">
                     <button class="btn btn-primary badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">DELETE</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:delpatview' t.patientId %}">DELETE</a> </button>
                 </td>
             </tr>
             {% endfor %}

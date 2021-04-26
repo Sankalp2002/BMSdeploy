@@ -52,7 +52,7 @@ def adminpaneldoctor(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpaneldonations(request):
-    donations=Donation.objects.all()
+    donations=Donation.objects.all().order_by('-donationId')
     return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
 
 @login_required
@@ -70,7 +70,7 @@ def adminpanelpatients(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanelrequests(request):
-    requests=BloodRequest.objects.filter(isApproved='P')
+    requests=BloodRequest.objects.all().order_by('-requestId')
     return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
 
 @login_required
@@ -80,14 +80,16 @@ def appreqview(request,rid):
     btype=obj.bloodType
     q=obj.quantity
     obj2=BloodInventory.objects.get(bloodType=btype)
-    if obj2.unit<q:
-        return render(request,'Blood/adminpanelrequests.html')
-    else:
-        obj2.unit-=q
-        obj2.save()
-        obj.isApproved='Y'
-        obj.save()
-        return render(request,'Blood/adminpanelrequests.html')
+    # if obj2.unit<q:
+    #     requests=BloodRequest.objects.all()
+    #     return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+    # else:
+    obj2.unit-=q
+    obj2.save()
+    obj.isApproved='Y'
+    obj.save()
+    requests=BloodRequest.objects.all().order_by('-requestId')
+    return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
@@ -95,4 +97,49 @@ def rejreqview(request,rid):
     obj=BloodRequest.objects.get(requestId=rid)
     obj.isApproved='N'
     obj.save()
-    return render(request,'Blood/adminpanelrequests.html')
+    requests=BloodRequest.objects.all().order_by('-requestId')
+    return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def appdonview(request,did):
+    obj=Donation.objects.get(donationId=did)
+    btype=obj.bloodType
+    q=obj.quantity
+    obj2=BloodInventory.objects.get(bloodType=btype)
+    obj2.unit+=q
+    obj2.save()
+    obj.isApproved='Y'
+    obj.save()
+    donations=Donation.objects.all().order_by('-donationId')
+    return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def rejdonview(request,did):
+    obj=Donation.objects.get(donationId=did)
+    obj.isApproved='N'
+    obj.save()
+    donations=Donation.objects.all().order_by('-donationId')
+    return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def deldocview(request,did):
+    Doctor.objects.get(DocUser_id=did).delete()
+    doctors=Doctor.objects.all()
+    return render(request,'Blood/adminpaneldoctor.html',{'doctors':doctors})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def deldonview(request,did):
+    Donor.objects.get(donorId=did).delete()
+    donors=Donor.objects.all()
+    return render(request,'Blood/adminpaneldonors.html',{'donors':donors})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def delpatview(request,pid):
+    Patient.objects.get(patientId=pid).delete()
+    patients=Patient.objects.all()
+    return render(request,'Blood/adminpanelpatients.html',{'patients':patients})

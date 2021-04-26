@@ -53,3 +53,6 @@ class Donation(models.Model):
 
     def __str__(self):
         return str(self.donorName)
+
+    class Meta:
+        get_latest_by = "-self.date"

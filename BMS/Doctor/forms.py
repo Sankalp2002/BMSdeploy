@@ -16,11 +16,21 @@ class docregisterformA(forms.ModelForm):
         special_characters = "['~','!','@','#','$','%','&','*','_',';']"
         if not any(char.isdigit() for char in data):
             raise ValidationError(('Password must contain at least 1 digit'))
-        if not any(char.isalpha() for char in password):
+        if not any(char.isalpha() for char in data):
             raise ValidationError(('Password must contain at least 1 alphabet'))
-        if not any(char in special_characters for char in password):
+        if not any(char in special_characters for char in data):
             raise ValidationError(('Password must contain at least 1 special character'))
         return data
+
+    def clean_username(self):
+        data=self.cleaned_data['username']
+        reg="^[a-zA-Z0-9_-]*$"
+        if re.search(reg, data):
+            print("valid")
+        else:
+            raise ValidationError(('Username can only contain alphanumeric and underscore,hyphen!'))
+        return data
+
     class Meta:
         model=User
         fields=('username','email','password')

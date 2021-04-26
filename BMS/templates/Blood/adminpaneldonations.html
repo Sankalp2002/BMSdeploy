@@ -31,14 +31,14 @@
                 <td>{{t.isApproved}}</td>
                 {% if t.isApproved == 'P' %}
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">APPROVE</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">REJECT</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:appdonview' t.donationId %}">APPROVE</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:rejdonview' t.donationId %}">REJECT</a> </button>
                 </td>
                 {% elif  t.isApproved == 'Y' %}
                 <td><span class="label warning">{{t.quantity}} Unit Added To Stock</span></td>
 
                 {% else %}
-                <td><span class="label danger">0 Unit Added To Stock</span></td> 
+                <td><span class="label danger">Rejected</span></td> 
                 {% endif %}
             </tr>
             {% endfor %}

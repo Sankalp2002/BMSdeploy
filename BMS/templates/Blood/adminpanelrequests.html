@@ -34,13 +34,17 @@
                 <td>{{t.date}}</td>
                 <td>{{t.isApproved}}</td>
                 
-                
+                {% if t.isApproved == 'P' %}
                 <td class="text-right">
-                   
                     <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:appreqview' t.requestId %}">Approve</a> </button>
                     <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:rejreqview' t.requestId %}">Reject</a> </button>
-                    
                 </td>
+                {% elif  t.isApproved == 'Y' %}
+                <td><span class="label warning">{{t.quantity}} Units provided To {{t.patientId}}</span></td>
+
+                {% else %}
+                <td><span class="label danger">Rejected</span></td> 
+                {% endif %}
             </tr>
             {% endfor %}
 
