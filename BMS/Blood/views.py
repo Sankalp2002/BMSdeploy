@@ -70,5 +70,29 @@ def adminpanelpatients(request):
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def adminpanelrequests(request):
-    requests=BloodRequest.objects.all()
+    requests=BloodRequest.objects.filter(isApproved='P')
     return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def appreqview(request,rid):
+    obj=BloodRequest.objects.get(requestId=rid)
+    btype=obj.bloodType
+    q=obj.quantity
+    obj2=BloodInventory.objects.get(bloodType=btype)
+    if obj2.unit<q:
+        return render(request,'Blood/adminpanelrequests.html')
+    else:
+        obj2.unit-=q
+        obj2.save()
+        obj.isApproved='Y'
+        obj.save()
+        return render(request,'Blood/adminpanelrequests.html')
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def rejreqview(request,rid):
+    obj=BloodRequest.objects.get(requestId=rid)
+    obj.isApproved='N'
+    obj.save()
+    return render(request,'Blood/adminpanelrequests.html')

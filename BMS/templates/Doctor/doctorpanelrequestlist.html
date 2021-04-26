@@ -19,7 +19,6 @@
             <tr>
                 <th scope="col">Request ID</th>
                 <th scope="col">For Patient ID</th>    
-                <th scope="col">By Doctor ID</th>
                 <th scope="col">Blood Group</th>
                 <th scope="col">Units</th>
                 <th scope="col">Date</th>
@@ -32,17 +31,14 @@
             <tr>
                 <td> {{t.requestId}}</td>
                 <td>{{t.patientId}}</td>
-                <td>{{t.doctorId}}</td>
                 <td>{{t.bloodType}}</td>
                 <td>{{t.quantity}}</td>
                 <td>{{t.date}}</td>
                 <td>{{t.isApproved}}</td>
-                
-                
+
                 <td class="text-right">
                    
-                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">Approve</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">Reject</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:cancelreq' t.requestId %}">Cancel</a> </button>
                     
                 </td>
             </tr>
@@ -52,7 +48,7 @@
     
     </table>
 {% else %}
-<h5>No Blood Request By Patient / Donor !</h5>
+<h5>You have posted no Blood Request yet !</h5>
 {% endif %}
 
 </div>

@@ -37,8 +37,8 @@
                 
                 <td class="text-right">
                    
-                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="">Approve</a> </button>
-                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="">Reject</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 100px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:appreqview' t.requestId %}">Approve</a> </button>
+                    <button class="btn btn-danger badge-pill" style="width: 80px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:rejreqview' t.requestId %}">Reject</a> </button>
                     
                 </td>
             </tr>

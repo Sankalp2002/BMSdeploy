@@ -15,5 +15,7 @@ urlpatterns=[
     path('Panel/Donor',views.docpaneldonor,name='docpaneldonor'),
     path('Panel/NewPatient',views.docpanelpatient,name='docpanelpatient'),
     path('Panel/Patients',views.docpanelplist,name='docpanelplist'),
+    path('Panel/Patients/<int:pid>',views.delpatview,name='delpatview'),
     path('Panel/Requests',views.docpanelrlist,name='docpanelrlist'),
+    path('Panel/Requests/<int:rid>',views.cancelreq,name='cancelreq'),
 ]

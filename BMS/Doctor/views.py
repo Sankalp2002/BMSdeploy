@@ -8,7 +8,7 @@ from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
 from Donor.models import Donor
 from Patient.models import Patient
-from Blood.models import BloodRequest
+from Blood.models import BloodRequest,BloodInventory
 from . import forms
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -147,6 +147,17 @@ def docpanelplist(request):
 @login_required
 @user_passes_test(lambda u:not u.is_superuser)
 def docpanelrlist(request):
-    requests=BloodRequest.objects.filter(doctorId=request.user.username)
+    requests=BloodRequest.objects.filter(doctorId=request.user.username,isApproved='P')
     return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
 
+@login_required
+@user_passes_test(lambda u:not u.is_superuser)
+def delpatview(request,pid):
+    Patient.objects.get(patientId=pid).delete()
+    return render(request,'Doctor/doctorpanelpatientlist.html')
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser)
+def cancelreq(request,rid):
+    BloodRequest.objects.get(requestId=rid).delete()
+    return render(request,'Doctor/doctorpanelrequestlist.html')
