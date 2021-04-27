@@ -81,16 +81,14 @@ def appreqview(request,qid):
     obj2=BloodInventory.objects.get(bloodType=btype)
     q=obj.quantity
     if obj2.unit<q:
-        requests=BloodRequest.objects.all().order_by('-requestId')
-        return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+        return HttpResponseRedirect(reverse('Blood:adminpanelrequests'))
     else:
         q=obj.quantity
         obj2.unit-=q
         obj2.save()
         obj.isApproved='Y'
         obj.save()
-        requests=BloodRequest.objects.all().order_by('-requestId')
-        return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+        return HttpResponseRedirect(reverse('Blood:adminpanelrequests'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
@@ -98,8 +96,7 @@ def rejreqview(request,rid):
     obj=BloodRequest.objects.get(requestId=rid)
     obj.isApproved='N'
     obj.save()
-    requests=BloodRequest.objects.all().order_by('-requestId')
-    return render(request,'Blood/adminpanelrequests.html',{'requests':requests})
+    return HttpResponseRedirect(reverse('Blood:adminpanelrequests'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
@@ -112,8 +109,7 @@ def appdonview(request,did):
     obj2.save()
     obj.isApproved='Y'
     obj.save()
-    donations=Donation.objects.all().order_by('-donationId')
-    return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
+    return HttpResponseRedirect(reverse('Blood:adminpaneldonations'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
@@ -121,29 +117,25 @@ def rejdonview(request,did):
     obj=Donation.objects.get(donationId=did)
     obj.isApproved='N'
     obj.save()
-    donations=Donation.objects.all().order_by('-donationId')
-    return render(request,'Blood/adminpaneldonations.html',{'donations':donations})
+    return HttpResponseRedirect(reverse('Blood:adminpaneldonations'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def deldocview(request,did):
     Doctor.objects.get(DocUser_id=did).delete()
-    doctors=Doctor.objects.all()
-    return render(request,'Blood/adminpaneldoctor.html',{'doctors':doctors})
+    return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def deldonview(request,did):
     Donor.objects.get(donorId=did).delete()
-    donors=Donor.objects.all()
-    return render(request,'Blood/adminpaneldonors.html',{'donors':donors})
+    return HttpResponseRedirect(reverse('Blood:adminpaneldonors'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def delpatview(request,pid):
     Patient.objects.get(patientId=pid).delete()
-    patients=Patient.objects.all()
-    return render(request,'Blood/adminpanelpatients.html',{'patients':patients})
+    return HttpResponseRedirect(reverse('Blood:adminpanelpatients'))
 
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
@@ -151,5 +143,33 @@ def appdocview(request,did):
     obj=Doctor.objects.get(DocUser_id=did)
     obj.isApproved='Y'
     obj.save()
-    doctors=Doctor.objects.all()
-    return render(request,'Blood/adminpaneldoctor.html',{'doctors':doctors})
+    return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def editdocview(request,did):
+    doc=Doctor.objects.get(DocUser_id=did)
+    return render(request,'Blood/editdoctor.html',{'doc':doc})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def editdocsave(request,did):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        age=request.POST.get('age')
+        sex=request.POST.get('sex')
+        degree=request.POST.get('degree')
+        phone=request.POST.get('phone')
+        address=request.POST.get('address')
+        doc=Doctor.objects.get(DocUser_id=did)
+        doc.name=name
+        doc.age=age
+        doc.sex=sex
+        doc.degree=degree
+        doc.phone=phone
+        doc.address=address
+        doc.save()
+        return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
+    else:
+        doc=Doctor.objects.get(DocUser_id=did)
+        return render(request,'Blood/editdoctor.html',{'doc':doc})

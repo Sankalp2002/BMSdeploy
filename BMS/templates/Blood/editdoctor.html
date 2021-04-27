@@ -1,0 +1,45 @@
+{% extends "Blood/adminbase.html" %}
+{% block title %}
+  <title>Admin: Edit Doctor</title>
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<br><br>
+<div class="login-dark">
+    <form action="{% url 'Blood:editdocsave' doc.DocUser_id %}" method="post">
+        <h2 class="header">Edit Doctor</h2>
+       <div class="illustration"><i class="icon ion-clipboard"></i></div>
+       <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" value="{{doc.name}}"></div>
+       <div class="form-group"><input class="form-control-ii" type="number" name="age" placeholder="Age" value="{{doc.age}}"></div>
+        <div>
+            <label for="sex">Sex:</label>
+            {% if doc.sex == 'M' %}
+          <select name="sex" id="sex" class="select-css">
+            <option value="M" selected >Male</option>
+            <option value="F">Female</option>
+            <option value="O">Other</option>
+          </select>
+          {% elif doc.sex == 'F' %}
+          <select name="sex" id="sex" class="select-css">
+            <option value="M" >Male</option>
+            <option value="F" selected>Female</option>
+            <option value="O">Other</option>
+          </select>
+          {% else %}
+          <select name="sex" id="sex" class="select-css">
+            <option value="M" >Male</option>
+            <option value="F">Female</option>
+            <option value="O" selected>Other</option>
+          </select>
+          {% endif %}
+        </div>
+      <div class="form-group"><input class="form-control" type="text" name="degree" placeholder="Degree" value="{{doc.degree}}"></div>
+      <div class="form-group"><input class="form-control" type="text" name="phone" placeholder="Phone" value="{{doc.phone}}"></div>
+       <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" value="{{doc.address}}"></div>
+       
+        {% csrf_token %}
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+      </form>
+  </div>
+
+{% endblock %}          
