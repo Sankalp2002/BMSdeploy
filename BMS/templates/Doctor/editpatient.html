@@ -4,8 +4,9 @@
 {% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'assets/css/panelforms.css' %}">
 <br><br>
-<div class="login-dark">
+<div class="panelforms">
     <form action="{% url 'Doctor:editpatsave' pat.patientId %}" method="post">
         <h2 class="header">Edit Patient: {{pat.name}}</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>

@@ -1,38 +1,167 @@
 <!DOCTYPE html>
 {% load static %}
 {% load crispy_forms_tags %}
-<html>
-<title>Register Doctor</title>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untitled</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}"/>
+    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}" />
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/animate/animate.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/css-hamburgers/hamburgers.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/select2/select2.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}">
+
 </head>
 
 <body>
-    <div class="login-dark">
-        <form method="post">
-            <h2 class="header">Registration</h2>
-           <div class="illustration"><i class="icon ion-clipboard"></i></div>
-            <div class="form-group">{{ formB.name|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.age|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.sex|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.address|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.phone|as_crispy_field }}</div>
-            <div class="form-group">{{ formA.email|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.degree|as_crispy_field }}</div>
-            <div class="form-group">{{ formB.hospitalId|as_crispy_field }}</div>
-            <div class="form-group">{{ formA.username|as_crispy_field }}</div>
-            <div class="form-group">{{ formA.password|as_crispy_field }}</div>
-            {% csrf_token %}
-            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Register</button></div>
-          </form>
-      </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="{% static 'images/414.jpg' %}" alt="IMG">
+                </div>
+
+                <form class="login100-form validate-form" method="POST">
+                    {% csrf_token %}
+                    <span class="login100-form-title">
+                        Doctor Registration
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Name">
+                        <!-- <input class="input100" type="text" name="Name" placeholder="Name"> -->
+                        <div>{{ formB.name|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Age should be a valid number">
+                        <!-- <input class="input100" type="number" name="Age" placeholder="Age"> -->
+                        <div>{{ formB.age|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Sex">
+                        <div>{{ formB.sex|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Address">
+                        <!-- <input class="input100" type="text" name="Address" placeholder="Address"> -->
+                        <div>{{ formB.address|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Mobile no should be 10 digits number">
+                        <!-- <input class="input100" type="tel" name="PhoneNumber" placeholder="Phone Number"> -->
+                        <div>{{ formB.phone|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Degree">
+                        <div>{{ formB.degree|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Hospital">
+                        <div>{{ formB.hospitalId|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Email">
+                        <div>{{ formA.email|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Username">
+                        <div>{{ formA.username|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password">
+                        <div>{{ formA.password|as_crispy_field }}</div>
+                        <span class="focus-input100"></span>
+                        <!-- <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span> -->
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Register
+                        </button>
+                    </div>
+                    
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="{%url 'Doctor:doclogin' %}">
+                            <h3>Login here</h3>
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <!-- <div class="text-center p-t-136">
+                        <a class="txt2" href="{%url 'home' %}">
+                            <h3>Go to Home</h3>
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div> -->
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="{% static 'assets/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'assets/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script>
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
+
 </body>
 
 </html>
