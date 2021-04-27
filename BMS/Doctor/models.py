@@ -26,7 +26,7 @@ class Doctor(models.Model):
     )
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M',help_text="Sex")
     address = models.CharField(max_length=128, help_text="Enter your address")
     phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
     isApproved = models.CharField(max_length=1, choices=APPROVAL_CHOICES, default='P')

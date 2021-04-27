@@ -53,4 +53,4 @@ class BloodRequest(models.Model):
         return str(self.requestId)
 
     class Meta:
-        get_latest_by = "-self.date"
+        ordering=['-date']
