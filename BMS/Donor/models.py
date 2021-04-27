@@ -43,7 +43,6 @@ class Donation(models.Model):
         ('P', 'Pending'),
     )
     donationId = models.AutoField(primary_key=True)
-    #donorId = models.ForeignKey(Donor, on_delete=models.CASCADE)
     donorName =  models.ForeignKey(Donor, to_field='name', on_delete=models.CASCADE, default="Anonymous")
     date = models.DateField(default=datetime.date.today)
     bloodType = models.CharField(max_length=3)

@@ -20,4 +20,8 @@ urlpatterns=[
     path('Panel/Requests',views.docpanelrlist,name='docpanelrlist'),
     path('Panel/Donors',views.docpaneldlist,name='docpaneldlist'),
     path('Panel/Requests/<int:rid>',views.cancelreq,name='cancelreq'),
+    path('Panel/Donors/edit/<int:did>',views.editdonview,name='editdonview'),
+    path('Panel/Donors/save/<int:did>',views.editdonsave,name='editdonsave'),
+    path('Panel/Patients/edit/<int:did>',views.editpatview,name='editpatview'),
+    path('Panel/Patients/save/<int:did>',views.editpatsave,name='editpatsave'),
 ]

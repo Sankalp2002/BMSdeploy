@@ -6,7 +6,7 @@ from Donor.forms import NewDonorForm,NewDonationForm
 from Blood.forms import NewRequestForm
 from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
-from Donor.models import Donor
+from Donor.models import Donor,Donation
 from Patient.models import Patient
 from Doctor.models import Doctor
 from Blood.models import BloodRequest,BloodInventory
@@ -156,19 +156,72 @@ def docpaneldlist(request):
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def delpatview(request,pid):
     Patient.objects.get(patientId=pid).delete()
-    patients=Patient.objects.filter(doctorId=request.user.username)
-    return render(request,'Doctor/doctorpanelpatientlist.html',{'patients':patients})
+    return HttpResponseRedirect(reverse('Doctor:docpanelplist'))
 
 @login_required
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def deldonview(request,pid):
     Donor.objects.get(donorId=pid).delete()
-    donors=Donor.objects.filter(doctorId=request.user.username)
-    return render(request,'Doctor/doctorpaneldonorlist.html',{'donors':donors})
+    return HttpResponseRedirect(reverse('Doctor:docpaneldlist'))
 
 @login_required
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
 def cancelreq(request,rid):
     BloodRequest.objects.get(requestId=rid).delete()
-    requests=BloodRequest.objects.filter(doctorId=request.user.username,isApproved='P')
-    return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
+    return HttpResponseRedirect(reverse('Doctor:docpanelrlist'))
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editdonview(request,did):
+    don=Donor.objects.get(donorId=did)
+    return render(request,'Doctor/editdonor.html',{'don':don})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editdonsave(request,did):
+    if request.method=='POST':
+        age=request.POST.get('age')
+        sex=request.POST.get('sex')
+        phone=request.POST.get('phone')
+        address=request.POST.get('address')
+        e=request.POST.get('email')
+        don=Donor.objects.get(donorId=did)
+        don.age=age
+        don.sex=sex
+        don.phone=phone
+        don.address=address
+        don.email=e
+        don.save()
+        return HttpResponseRedirect(reverse('Doctor:docpaneldlist'))
+    else:
+        don=Donor.objects.get(donorId=did)
+        return render(request,'Doctor/editdonor.html',{'don':don})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editpatview(request,did):
+    pat=Patient.objects.get(patientId=did)
+    return render(request,'Doctor/editpatient.html',{'pat':pat})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editpatsave(request,did):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        age=request.POST.get('age')
+        sex=request.POST.get('sex')
+        phone=request.POST.get('phone')
+        address=request.POST.get('address')
+        e=request.POST.get('email')
+        pat=Patient.objects.get(patientId=did)
+        pat.name=name
+        pat.age=age
+        pat.sex=sex
+        pat.phone=phone
+        pat.address=address
+        pat.email=e
+        pat.save()
+        return HttpResponseRedirect(reverse('Doctor:docpanelplist'))
+    else:
+        pat=Patient.objects.get(patientId=did)
+        return render(request,'Doctor/editpatient.html',{'pat':pat})

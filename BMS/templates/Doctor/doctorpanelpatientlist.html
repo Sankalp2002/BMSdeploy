@@ -35,7 +35,7 @@
                 <td> {{t.address}}</td>
                 
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style="width: 80px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="">EDIT</a> </button>
+                    <button class="btn btn-primary badge-pill" style="width: 80px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:editpatview' t.patientId %}">EDIT</a> </button>
                     <button class="btn btn-danger badge-pill" style="width: 80px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="{% url 'Doctor:delpatview' t.patientId  %}">DELETE</a> </button>
                 </td>
             </tr>
