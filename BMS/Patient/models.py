@@ -1,8 +1,9 @@
 # Patient
 from django.db import models
 from Doctor import models as dmodels
+from django.core.exceptions import ValidationError
+import re
 # Create your models here.
-
 
 class Patient(models.Model):
     SEX_CHOICES = (

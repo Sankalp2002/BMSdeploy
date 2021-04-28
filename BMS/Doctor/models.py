@@ -1,8 +1,9 @@
 # Doctor
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+import re
 # Create your models here.
-
 
 class Hospital(models.Model):
     hospitalId = models.AutoField(primary_key=True)

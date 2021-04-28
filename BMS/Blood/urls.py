@@ -22,4 +22,5 @@ urlpatterns=[
     path('Doctors/A/<int:did>',views.appdocview,name='appdocview'),
     path('Doctors/edit/<int:did>',views.editdocview,name='editdocview'),
     path('Doctors/save/<int:did>',views.editdocsave,name='editdocsave'),
+    path('Doctors/cancel/',views.editdoccancel,name='editdoccancel'),
 ]

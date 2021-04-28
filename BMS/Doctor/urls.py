@@ -24,4 +24,6 @@ urlpatterns=[
     path('Panel/Donors/save/<int:did>',views.editdonsave,name='editdonsave'),
     path('Panel/Patients/edit/<int:did>',views.editpatview,name='editpatview'),
     path('Panel/Patients/save/<int:did>',views.editpatsave,name='editpatsave'),
+    path('Panel/Donors/cancel/',views.editdoncancel,name='editdoncancel'),
+    path('Panel/Patients/cancel/',views.editpatcancel,name='editpatcancel'),
 ]

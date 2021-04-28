@@ -15,10 +15,18 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
+from django.core.exceptions import ValidationError
+import re
 #from django.http import HttpResponse
 # from Doctor.forms import docregisterform
 
 # Create your views here.
+def valid_phone(data):
+    reg="^(\d{10})$"
+    if len(data)==10 and re.search(reg, data):
+        print("valid")
+    else:
+        raise ValidationError(('Mobile Number must have 10 digits'))
 
 def doclogin(request,i):
     if request.method=='POST':
@@ -183,6 +191,7 @@ def editdonsave(request,did):
         age=request.POST.get('age')
         sex=request.POST.get('sex')
         phone=request.POST.get('phone')
+        valid_phone(phone)
         address=request.POST.get('address')
         e=request.POST.get('email')
         don=Donor.objects.get(donorId=did)
@@ -211,6 +220,7 @@ def editpatsave(request,did):
         age=request.POST.get('age')
         sex=request.POST.get('sex')
         phone=request.POST.get('phone')
+        valid_phone(phone)
         address=request.POST.get('address')
         e=request.POST.get('email')
         pat=Patient.objects.get(patientId=did)
@@ -225,3 +235,13 @@ def editpatsave(request,did):
     else:
         pat=Patient.objects.get(patientId=did)
         return render(request,'Doctor/editpatient.html',{'pat':pat})
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editpatcancel(request):
+    return HttpResponseRedirect(reverse('Doctor:docpanelplist'))
+
+@login_required
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+def editdoncancel(request):
+    return HttpResponseRedirect(reverse('Doctor:docpaneldlist'))

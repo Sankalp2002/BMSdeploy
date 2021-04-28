@@ -1,4 +1,5 @@
 {% extends "Blood/adminbase.html" %}
+{% load static %}
 {% block title %}
   <title>Admin: Edit Doctor</title>
 {% endblock %}
@@ -10,8 +11,10 @@
     <form action="{% url 'Blood:editdocsave' doc.DocUser_id %}" method="post">
         <h2 class="header">Edit Doctor: {{doc.name}}</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
-       <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Name" value="{{doc.name}}"></div>
-       <div class="form-group"><input class="form-control-ii" type="number" name="age" placeholder="Age" value="{{doc.age}}"></div>
+       <label for="name">Name:</label>
+       <div class="form-group" id="name"><input class="form-control" type="text" name="name" placeholder="Name" value="{{doc.name}}"></div>
+       <label for="age">Age:</label>
+       <div class="form-group" id="age"><input class="form-control-ii" type="number" name="age" placeholder="Age" value="{{doc.age}}"></div>
         <div>
             <label for="sex">Sex:</label>
             {% if doc.sex == 'M' %}
@@ -34,13 +37,17 @@
           </select>
           {% endif %}
         </div>
-      <div class="form-group"><input class="form-control" type="text" name="degree" placeholder="Degree" value="{{doc.degree}}"></div>
-      <div class="form-group"><input class="form-control" type="text" name="phone" placeholder="Mobile" value="{{doc.phone}}"></div>
-       <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" value="{{doc.address}}"></div>
+        <label for="degree">Degree:</label>
+      <div class="form-group" id="degree"><input class="form-control" type="text" name="degree" placeholder="Degree" value="{{doc.degree}}"></div>
+      <label for="mobile">Mobile No.:</label>
+      <div class="form-group" id="mobile"><input class="form-control" type="text" name="phone" placeholder="Mobile" value="{{doc.phone}}"></div>
+      <label for="address">Address:</label>
+       <div class="form-group" id="address"><input class="form-control" type="text" name="address" placeholder="Address" value="{{doc.address}}"></div>
        
         {% csrf_token %}
         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
       </form>
+      <div><a type="button" class="btn btn-danger btn-block" href="{% url 'Blood:editdoccancel' %}">Cancel</a></div>
   </div>
 
 {% endblock %}          

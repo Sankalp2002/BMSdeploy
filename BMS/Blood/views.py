@@ -8,8 +8,16 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+import re
 
 # Create your views here.
+def valid_phone(data):
+    reg="^(\d{10})$"
+    if len(data)==10 and re.search(reg, data):
+        print("valid")
+    else:
+        raise ValidationError(('Mobile Number must have 10 digits'))
 
 def home(request):
     return render(request,'Blood/home.html')
@@ -160,6 +168,7 @@ def editdocsave(request,did):
         sex=request.POST.get('sex')
         degree=request.POST.get('degree')
         phone=request.POST.get('phone')
+        valid_phone(phone)
         address=request.POST.get('address')
         doc=Doctor.objects.get(DocUser_id=did)
         doc.name=name
@@ -173,3 +182,8 @@ def editdocsave(request,did):
     else:
         doc=Doctor.objects.get(DocUser_id=did)
         return render(request,'Blood/editdoctor.html',{'doc':doc})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def editdoccancel(request):
+    return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))

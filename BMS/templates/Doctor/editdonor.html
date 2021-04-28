@@ -1,4 +1,5 @@
 {% extends "Doctor/doctorbase.html" %}
+{% load static %}
 {% block title %}
   <title>Edit Donor</title>
 {% endblock %}
@@ -10,7 +11,8 @@
     <form action="{% url 'Doctor:editdonsave' don.donorId %}" method="post">
         <h2 class="header">Edit Donor: {{don.name}}</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
-       <div class="form-group"><input class="form-control-ii" type="number" name="age" placeholder="Age" value="{{don.age}}"></div>
+       <label for="age">Age:</label>
+       <div class="form-group" id="age"><input class="form-control-ii" type="number" name="age" placeholder="Age" value="{{don.age}}"></div>
         <div>
             <label for="sex">Sex:</label>
             {% if don.sex == 'M' %}
@@ -33,13 +35,17 @@
           </select>
           {% endif %}
         </div>
-      <div class="form-group"><input class="form-control" type="text" name="phone" placeholder="Mobile" value="{{don.phone}}"></div>
-      <div class="form-group"><input class="form-control" type="text" name="email" placeholder="Email" value="{{don.email}}"></div>
-       <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address" value="{{don.address}}"></div>
+        <label for="mobile">Mobile No.:</label>
+      <div class="form-group" id="mobile"><input class="form-control" type="text" name="phone" placeholder="Mobile" value="{{don.phone}}"></div>
+      <label for="e">Email:</label>
+      <div class="form-group" id="e"><input class="form-control" type="text" name="email" placeholder="Email" value="{{don.email}}"></div>
+      <label for="address">Address:</label>
+       <div class="form-group" id="address"><input class="form-control" type="text" name="address" placeholder="Address" value="{{don.address}}"></div>
        
         {% csrf_token %}
         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
       </form>
+      <div><a type="button" class="btn btn-danger btn-block" href="{% url 'Doctor:editdoncancel' %}">Cancel</a></div>
   </div>
 
 {% endblock %}          
