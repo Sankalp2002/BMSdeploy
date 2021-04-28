@@ -20,7 +20,7 @@ from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 
-def doclogin(request):
+def doclogin(request,i):
     if request.method=='POST':
         username=request.POST.get('username')
         password=request.POST.get('password')
@@ -39,7 +39,7 @@ def doclogin(request):
             print("A login failed")
             return(HttpResponse("Invalid login details!"))
     else:
-        return render(request,'Doctor/doctorlogin.html',{})
+        return render(request,'Doctor/doctorlogin.html',{'i':i})
 
 @login_required
 def doclogout(request):

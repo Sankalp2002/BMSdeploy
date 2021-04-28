@@ -27,16 +27,31 @@
 
 	<div class="limiter">
 		<div class="container-login100">
+			<div class="container-login100-form-btn" >
+                <button class="login100-form-btn" style="width: 10%; margin-bottom: 1rem; background-color: black;">
+                    <a href="{%url 'home' %}"></a>Home</a>
+                </button>
+            </div>
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{% static 'images/414.jpg' %}" alt="IMG">
+					{% if i == 1 %}
+					<img src="{% static 'images/3.jpeg' %}" alt="IMG">
+					{% else %}
+					<img src="{% static 'images/2.jpeg' %}" alt="IMG">
+					{% endif %}
 				</div>
 
-				<form class="login100-form validate-form" action="{% url 'Doctor:doclogin'%}" method="post">
+				<form class="login100-form validate-form" action="{% url 'Doctor:doclogin' 0 %}" method="post">
 					{% csrf_token %}
+					{% if i == 1 %}
 					<span class="login100-form-title">
-						Admin/Doctor Login
+						Doctor Login
 					</span>
+					{% else %}
+					<span class="login100-form-title">
+						Admin Login
+					</span>
+					{% endif %}
 
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username">

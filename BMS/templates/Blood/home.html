@@ -13,15 +13,16 @@
 </head>
 
 <body>
-    <div>
+    <div class="demo-wrap">
         <div class="header-dark">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-                <div class="container"><a class="navbar-brand" href="#">BloodBank Management System</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="container"><a class="navbar-brand" href="{%url 'home' %}"><h3>BloodBank Management System</h3></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse"
                         id="navcol-1">
                         <ul class="nav navbar-nav">
-                            <!-- <li class="nav-item" role="presentation"><a class="nav-link" href="">Admin</a></li> -->
-                            <li class="nav-item" role="presentation"><a class="nav-link" href="{%url 'Doctor:doclogin' %}"><h3>Login</h3></a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link btn-dark" href="{%url 'Doctor:doclogin' 0 %}">Admin Login</a></li>
+                           
+                            <li class="nav-item" role="presentation"><a class="nav-link btn-dark" href="{%url 'Doctor:doclogin' 1 %}">Doctor Login</a></li>
                         </ul>
                         <form class="form-inline mr-auto" target="_self">
                         </form><a class="btn btn-light action-button" role="button" href="{%url 'Doctor:docregister' %}">Doctor:Sign Up</a></div>
@@ -29,7 +30,7 @@
             </nav>
             <div class="container hero">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2">
+                    <div class="col-md-4 offset-md-2">
                         <div class="container">
                         <p id="typewriter" data-typewriter="Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives,Donate blood,Save lives"></p><span class="blinking-cursor">|</span>
                         </div>
