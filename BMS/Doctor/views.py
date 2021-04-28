@@ -15,7 +15,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
-from django.core.exceptions import ValidationError
+from django.core.validators import ValidationError,validate_email
 import re
 #from django.http import HttpResponse
 # from Doctor.forms import docregisterform
@@ -194,6 +194,7 @@ def editdonsave(request,did):
         valid_phone(phone)
         address=request.POST.get('address')
         e=request.POST.get('email')
+        validate_email(e)
         don=Donor.objects.get(donorId=did)
         don.age=age
         don.sex=sex
@@ -223,6 +224,7 @@ def editpatsave(request,did):
         valid_phone(phone)
         address=request.POST.get('address')
         e=request.POST.get('email')
+        validate_email(e)
         pat=Patient.objects.get(patientId=did)
         pat.name=name
         pat.age=age

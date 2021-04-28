@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
+from django.core.validators import ValidationError,validate_email
 import re
 
 # Create your views here.
