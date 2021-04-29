@@ -77,12 +77,12 @@ def docregister(request):
     return render(request,'Doctor/registration.html',{'formA':formA,'formB':formB,'registered':registered})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanel(request):
     return render(request,'Doctor/doctorpanel.html')
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelrequest(request):
     form=NewRequestForm()
     if request.method=="POST":
@@ -97,7 +97,7 @@ def docpanelrequest(request):
     return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelnewdon(request):
     form=NewDonationForm()
     if request.method=="POST":
@@ -113,7 +113,7 @@ def docpanelnewdon(request):
     return render(request,'Doctor/doctorpanelnewdon.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpaneldonor(request):
     form=NewDonorForm()
     if request.method=="POST":
@@ -128,7 +128,7 @@ def docpaneldonor(request):
     return render(request,'Doctor/doctorpaneldonor.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelpatient(request):
     form=NewPatientForm()
     if request.method=="POST":
@@ -143,49 +143,49 @@ def docpanelpatient(request):
     return render(request,'Doctor/doctorpanelpatient.html',{'form':form})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelplist(request):
     patients=Patient.objects.filter(doctorId=request.user.username)
     return render(request,'Doctor/doctorpanelpatientlist.html',{'patients':patients})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelrlist(request):
     requests=BloodRequest.objects.filter(doctorId=request.user.username).order_by('-requestId')
     return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpaneldlist(request):
     donors=Donor.objects.filter(doctorId=request.user.username)
     return render(request,'Doctor/doctorpaneldonorlist.html',{'donors':donors})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def delpatview(request,pid):
     Patient.objects.get(patientId=pid).delete()
     return HttpResponseRedirect(reverse('Doctor:docpanelplist'))
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def deldonview(request,pid):
     Donor.objects.get(donorId=pid).delete()
     return HttpResponseRedirect(reverse('Doctor:docpaneldlist'))
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def cancelreq(request,rid):
     BloodRequest.objects.get(requestId=rid).delete()
     return HttpResponseRedirect(reverse('Doctor:docpanelrlist'))
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editdonview(request,did):
     don=Donor.objects.get(donorId=did)
     return render(request,'Doctor/editdonor.html',{'don':don})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editdonsave(request,did):
     if request.method=='POST':
         age=request.POST.get('age')
@@ -208,13 +208,13 @@ def editdonsave(request,did):
         return render(request,'Doctor/editdonor.html',{'don':don})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editpatview(request,did):
     pat=Patient.objects.get(patientId=did)
     return render(request,'Doctor/editpatient.html',{'pat':pat})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editpatsave(request,did):
     if request.method=='POST':
         name=request.POST.get('name')
@@ -239,11 +239,11 @@ def editpatsave(request,did):
         return render(request,'Doctor/editpatient.html',{'pat':pat})
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editpatcancel(request):
     return HttpResponseRedirect(reverse('Doctor:docpanelplist'))
 
 @login_required
-@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(id=u.id).isApproved=='Y')
+@user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editdoncancel(request):
     return HttpResponseRedirect(reverse('Doctor:docpaneldlist'))

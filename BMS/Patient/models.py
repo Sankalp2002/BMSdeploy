@@ -22,7 +22,7 @@ class Patient(models.Model):
         ('AB-', 'AB-'),
     )
     patientId = models.AutoField(primary_key=True)
-    doctorId = models.CharField(max_length=128)
+    doctorId = models.CharField(max_length=128,blank=True)
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')

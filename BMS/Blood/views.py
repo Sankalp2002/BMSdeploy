@@ -112,7 +112,11 @@ def appdonview(request,did):
     obj=Donation.objects.get(donationId=did)
     btype=obj.bloodType
     q=obj.quantity
+    if len(BloodInventory.objects.filter(bloodType=btype))==0:
+        obj3=BloodInventory(bloodType=btype,unit=0)
+        obj3.save()
     obj2=BloodInventory.objects.get(bloodType=btype)
+    # print(obj2)
     obj2.unit+=q
     obj2.save()
     obj.isApproved='Y'
@@ -130,6 +134,18 @@ def rejdonview(request,did):
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def deldocview(request,did):
+    brset=BloodRequest.objects.filter(doctorId=did)
+    for obj in brset:
+        obj.doctorId=""
+        obj.save()
+    dset=Donor.objects.filter(doctorId=did)
+    for obj in dset:
+        obj.doctorId=""
+        obj.save()
+    pset=Patient.objects.filter(doctorId=did)
+    for obj in pset:
+        obj.doctorId=""
+        obj.save()
     Doctor.objects.get(DocUser_id=did).delete()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
