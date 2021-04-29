@@ -68,7 +68,7 @@ def docregister(request):
             docB.DocUser=docA
             docB.save()
             registered=True
-            return HttpResponseRedirect(reverse('Doctor:doclogin'))
+            return render(request,'Doctor/doctorlogin.html',{'i':0})
         else:
             print(docregisterformA.errors,docregisterformB.errors)
     else:
