@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 app_name='Doctor'
 
 urlpatterns=[
-    path('Login/<int:i>',views.doclogin,name='doclogin'),
+    path('Login/',views.doclogin,name='doclogin'),
     #path('Login/', LoginView.as_view(template_name='Doctor/doctorlogin.html'), name='doclogin'),
     path('Register/',views.docregister,name='docregister'),
     path('Panel/',views.docpanel,name='docpanel'),

@@ -28,7 +28,7 @@ def valid_phone(data):
     else:
         raise ValidationError(('Mobile Number must have 10 digits'))
 
-def doclogin(request,i):
+def doclogin(request):
     if request.method=='POST':
         username=request.POST.get('username')
         password=request.POST.get('password')
@@ -47,7 +47,7 @@ def doclogin(request,i):
             print("A login failed")
             return(HttpResponse("Invalid login details!"))
     else:
-        return render(request,'Doctor/doctorlogin.html',{'i':i})
+        return render(request,'Doctor/doctorlogin.html')
 
 @login_required
 def doclogout(request):
@@ -68,7 +68,7 @@ def docregister(request):
             docB.DocUser=docA
             docB.save()
             registered=True
-            return render(request,'Doctor/doctorlogin.html',{'i':0})
+            return render(request,'Doctor/doctorlogin.html')
         else:
             print(docregisterformA.errors,docregisterformB.errors)
     else:

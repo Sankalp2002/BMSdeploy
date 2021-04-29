@@ -34,24 +34,24 @@
             </div>
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					{% if i == 1 %}
-					<img src="{% static 'images/3.jpeg' %}" alt="IMG">
-					{% else %}
+					
+					<!-- <img src="{% static 'images/3.jpeg' %}" alt="IMG"> -->
+					
 					<img src="{% static 'images/2.jpeg' %}" alt="IMG">
-					{% endif %}
+					
 				</div>
 
-				<form class="login100-form validate-form" action="{% url 'Doctor:doclogin' 0 %}" method="post">
+				<form class="login100-form validate-form" action="{% url 'Doctor:doclogin' %}" method="POST">
 					{% csrf_token %}
-					{% if i == 1 %}
+					
 					<span class="login100-form-title">
 						Doctor Login
 					</span>
-					{% else %}
-					<span class="login100-form-title">
+					
+					<!-- <span class="login100-form-title">
 						Admin Login
-					</span>
-					{% endif %}
+					</span> -->
+					
 
 					<div class="wrap-input100 validate-input" data-validate="Username is required">
 						<input class="input100" type="text" name="username" placeholder="Username">
@@ -74,14 +74,13 @@
 							Login
 						</button>
 					</div>
-
-					<div class="text-center p-t-136">
-						<a class="txt2" href="{%url 'Doctor:docregister' %}">
-							<h3>Register as Doctor here.</h3>
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
 				</form>
+				<div class="text-center p-t-136">
+					<a class="txt2" href="{%url 'Doctor:docregister' %}">
+						<h3>Register as Doctor here.</h3>
+						<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
