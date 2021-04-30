@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from Doctor.models import Doctor
+from Doctor.models import Doctor,Hospital
 from Donor.models import Donor,Donation
 from Patient.models import Patient
 from Blood.models import BloodRequest,BloodInventory
 from django.urls import reverse
+from Doctor.forms import NewHospitalForm
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth import authenticate,login,logout
@@ -21,24 +22,6 @@ def valid_phone(data):
 
 def home(request):
     return render(request,'Blood/home.html')
-
-# def adminlogin(request):
-#     if request.method=='POST':
-#         username=request.POST.get('username')
-#         password=request.POST.get('password')
-
-#         aduser=authenticate(username=username,password=password)
-#         if aduser:
-#             if aduser.is_active and aduser.is_superuser:
-#                 login(request,aduser)
-#                 return HttpResponseRedirect(reverse('Blood:adminpanel'))
-#             else:
-#                 return HttpResponse("Account not active")
-#         else:
-#             print("A login failed")
-#             return(HttpResponse("Invalid login details!"))
-#     else:
-#         return render(request,'Blood/adminlogin.html',{})
 
 @login_required
 def adminlogout(request):
@@ -116,7 +99,6 @@ def appdonview(request,did):
         obj3=BloodInventory(bloodType=btype,unit=0)
         obj3.save()
     obj2=BloodInventory.objects.get(bloodType=btype)
-    # print(obj2)
     obj2.unit+=q
     obj2.save()
     obj.isApproved='Y'
@@ -134,18 +116,18 @@ def rejdonview(request,did):
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def deldocview(request,did):
-    brset=BloodRequest.objects.filter(doctorId=did)
-    for obj in brset:
-        obj.doctorId=""
-        obj.save()
-    dset=Donor.objects.filter(doctorId=did)
-    for obj in dset:
-        obj.doctorId=""
-        obj.save()
-    pset=Patient.objects.filter(doctorId=did)
-    for obj in pset:
-        obj.doctorId=""
-        obj.save()
+    # brset=BloodRequest.objects.filter(doctorId=did)
+    # for obj in brset:
+    #     obj.doctorId=""
+    #     obj.save()
+    # dset=Donor.objects.filter(doctorId=did)
+    # for obj in dset:
+    #     obj.doctorId=""
+    #     obj.save()
+    # pset=Patient.objects.filter(doctorId=did)
+    # for obj in pset:
+    #     obj.doctorId=""
+    #     obj.save()
     Doctor.objects.get(DocUser_id=did).delete()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
@@ -203,3 +185,50 @@ def editdocsave(request,did):
 @user_passes_test(lambda u:u.is_superuser)
 def editdoccancel(request):
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def newhospital(request):
+    form=NewHospitalForm()
+    if request.method=="POST":
+        form= NewHospitalForm(request.POST)
+        if form.is_valid():
+            hos=form.save(commit=False)
+            hos.save()
+            return HttpResponseRedirect(reverse('Blood:adminpanel'))
+        else:
+            print('Error')
+    return render(request,'Blood/addhospital.html',{'form':form})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def edithospital(request,id):
+    doc=Hospital.objects.get(hospitalId=id)
+    return render(request,'Blood/hospitaledit.html',{'doc':doc})
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def listhospital(request):
+    hos=Hospital.objects.all()
+    return render(request,'Blood/hospitallist.html',{'hos':hos})
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def delhospital(request,id):
+    Hospital.objects.get(hospitalId=id).delete()
+    return HttpResponseRedirect(reverse('Blood:listhospital'))
+
+@login_required
+@user_passes_test(lambda u:u.is_superuser)
+def edithossave(request,id):
+    if request.method=='POST':
+        name=request.POST.get('name')
+        address=request.POST.get('address')
+        doc=Hospital.objects.get(hospitalId=id)
+        doc.name=name
+        doc.address=address
+        doc.save()
+        return HttpResponseRedirect(reverse('Blood:listhospital'))
+    else:
+        doc=Hospital.objects.get(hospitalId=id)
+        return render(request,'Blood/hospitaledit.html',{'doc':doc})

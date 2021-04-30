@@ -12,7 +12,8 @@
         <thead class="bg-info">
             <tr>
                 <th scope="col">Donation ID</th>
-                <th scope="col">Donor Name</th>
+                <th scope="col">Donor ID</th>
+                <th scope="col">Name</th>
                 <th scope="col">Blood Group</th>
                 <th scope="col">Units</th>
                 <th scope="col">Date</th>
@@ -24,7 +25,8 @@
             {% for t in donations %}
             <tr>
                 <td> {{t.donationId}}</td>
-                <td> {{t.donorName}}</td>
+                <td> {{t.donorId}}</td>
+                <td>{{t.name}}</td>
                 <td>{{t.date}}</td>
                 <td>{{t.bloodType}}</td>
                 <td>{{t.quantity}}</td>

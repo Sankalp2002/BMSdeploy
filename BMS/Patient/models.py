@@ -1,8 +1,7 @@
 # Patient
 from django.db import models
 from Doctor import models as dmodels
-from django.core.exceptions import ValidationError
-import re
+
 # Create your models here.
 
 class Patient(models.Model):
@@ -21,7 +20,7 @@ class Patient(models.Model):
         ('AB+', 'AB+'),
         ('AB-', 'AB-'),
     )
-    patientId = models.AutoField(primary_key=True)
+    patientId = models.CharField(primary_key=True,max_length=128,help_text="Patient ID is for unique identification.")
     doctorId = models.CharField(max_length=128,blank=True)
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
@@ -32,4 +31,5 @@ class Patient(models.Model):
     bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
 
     def __str__(self):
-        return self.name
+        return self.patientId
+        # return str(self.patientId)+str(self.bloodType)

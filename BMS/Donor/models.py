@@ -3,8 +3,7 @@ from django.db import models
 from Doctor import models as dmodels
 from Blood import models as bmodels
 import datetime
-from django.core.exceptions import ValidationError
-import re
+
 # Create your models here.
 
 class Donor(models.Model):
@@ -23,9 +22,9 @@ class Donor(models.Model):
         ('AB+', 'AB+'),
         ('AB-', 'AB-'),
     )
-    donorId = models.AutoField(primary_key=True)
+    donorId = models.CharField(primary_key=True,max_length=128,help_text="Donor ID is for unique identification.")
     doctorId = models.CharField(max_length=128,blank=True)
-    name = models.CharField(max_length=32,unique=True,help_text="Enter your name")
+    name = models.CharField(max_length=32,help_text="Enter your name")
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
     address = models.CharField(max_length=128, help_text="Enter your address")
@@ -34,7 +33,8 @@ class Donor(models.Model):
     bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
 
     def __str__(self):
-        return self.name
+        return self.donorId
+        
 
 
 class Donation(models.Model):
@@ -44,7 +44,7 @@ class Donation(models.Model):
         ('P', 'Pending'),
     )
     donationId = models.AutoField(primary_key=True)
-    donorName =  models.ForeignKey(Donor, to_field='name', on_delete=models.CASCADE, default="Anonymous")
+    donorId =  models.ForeignKey(Donor, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
     bloodType = models.CharField(max_length=3)
     isApproved = models.CharField(
@@ -52,7 +52,8 @@ class Donation(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.donorName)
+        return self.donationId
+        # return str(self.donationId)+str(self.bloodType)
 
     class Meta:
         ordering=['-date']

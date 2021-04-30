@@ -5,4 +5,5 @@ from Blood.models import BloodRequest
 class NewRequestForm(forms.ModelForm):
     class Meta:
         model=BloodRequest
-        fields= ('patientId','date','bloodType','quantity')
+        fields= ('patientId','bloodType','quantity')
+

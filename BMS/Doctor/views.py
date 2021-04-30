@@ -89,9 +89,13 @@ def docpanelrequest(request):
         form= NewRequestForm(request.POST)
         if form.is_valid():
             req=form.save(commit=False)
-            req.doctorId=request.user.username
-            req.save()
-            return docpanel(request)
+            obj=Patient.objects.get(patientId=req.patientId)
+            if obj.doctorId==request.user.username:
+                req.doctorId=request.user.username
+                req.save()
+                return docpanel(request)
+            else:
+                raise(ValidationError("You are not the doctor of chosen patient."))
         else:
             print('Error')
     return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
@@ -104,7 +108,7 @@ def docpanelnewdon(request):
         form= NewDonationForm(request.POST)
         if form.is_valid():
             donat=form.save(commit=False)
-            obj=Donor.objects.get(name=donat.donorName)
+            obj=Donor.objects.get(donorId=donat.donorId)
             donat.bloodType=obj.bloodType
             donat.save()
             return docpanel(request)
@@ -188,6 +192,7 @@ def editdonview(request,did):
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def editdonsave(request,did):
     if request.method=='POST':
+        name=request.POST.get('name')
         age=request.POST.get('age')
         sex=request.POST.get('sex')
         phone=request.POST.get('phone')
@@ -196,6 +201,7 @@ def editdonsave(request,did):
         e=request.POST.get('email')
         validate_email(e)
         don=Donor.objects.get(donorId=did)
+        don.name=name
         don.age=age
         don.sex=sex
         don.phone=phone

@@ -45,7 +45,7 @@
 					{% csrf_token %}
 					
 					<span class="login100-form-title">
-						Doctor Login
+						Login: Unified login for both Admin and Doctor.
 					</span>
 					
 					<!-- <span class="login100-form-title">
@@ -74,13 +74,14 @@
 							Login
 						</button>
 					</div>
+					<div class="text-center p-t-136">
+						<a class="txt2" href="{%url 'Doctor:docregister' %}">
+							<h3>Register as Doctor here.</h3>
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
 				</form>
-				<div class="text-center p-t-136">
-					<a class="txt2" href="{%url 'Doctor:docregister' %}">
-						<h3>Register as Doctor here.</h3>
-						<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-					</a>
-				</div>
+				
 			</div>
 		</div>
 	</div>

@@ -9,7 +9,7 @@
 <br><br>
 <div class="panelforms">
     <form action="{% url 'Doctor:editpatsave' pat.patientId %}" method="post">
-        <h2 class="header">Edit Patient: {{pat.name}}</h2>
+        <h2 class="header">Editing Patient: {{pat.patientId}}</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
        <label for="name">Name:</label>
        <div class="form-group" id="name"><input class="form-control" type="text" name="name" placeholder="Name" value="{{pat.name}}"></div>

@@ -1,8 +1,8 @@
-{% extends "Doctor/doctorbase.html" %}
+{% extends "Blood/adminbase.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
-  <title>New Donation</title>
+  <title>New Hospital</title>
 {% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'assets/css/panelforms.css' %}">
@@ -10,13 +10,13 @@
 <br><br>
 <div class="panelforms">
     <form method="post">
-        <h2 class="header">New Donation</h2>
+        <h2 class="header">Add Hospital</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
-        <div class="form-group">{{ form.donorId|as_crispy_field }}</div>
-        <div class="form-group">{{ form.quantity|as_crispy_field }}</div>
+        <div class="form-group">{{ form.name|as_crispy_field }}</div>
+        <div class="form-group">{{ form.address|as_crispy_field }}</div>
         
         {% csrf_token %}
-        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Post</button></div>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
       </form>
   </div>
 

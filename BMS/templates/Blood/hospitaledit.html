@@ -1,0 +1,24 @@
+{% extends "Blood/adminbase.html" %}
+{% load static %}
+{% block title %}
+  <title>Admin: Edit Hospital</title>
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<link rel="stylesheet" href="{% static 'assets/css/panelforms.css' %}">
+<br><br>
+<div class="panelforms">
+    <form action="{% url 'Blood:edithossave' doc.hospitalId %}" method="post">
+        <h2 class="header">Edit Hospital: {{doc.name}}</h2>
+       <div class="illustration"><i class="icon ion-clipboard"></i></div>
+       <label for="name">Name:</label>
+       <div class="form-group" id="name"><input class="form-control" type="text" name="name" placeholder="Name" value="{{doc.name}}"></div>
+      <label for="address">Address:</label>
+       <div class="form-group" id="address"><input class="form-control" type="text" name="address" placeholder="Address" value="{{doc.address}}"></div>
+       
+        {% csrf_token %}
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Save</button></div>
+      </form>
+  </div>
+
+{% endblock %}          

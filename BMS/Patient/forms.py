@@ -16,4 +16,4 @@ class NewPatientForm(forms.ModelForm):
 
     class Meta:
         model=Patient
-        fields= ('name','address','phone','email','age','sex','bloodType')
+        fields= ('patientId','name','address','phone','email','age','sex','bloodType')

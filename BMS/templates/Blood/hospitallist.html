@@ -1,0 +1,38 @@
+{% extends "Blood/adminbase.html" %}
+{% block title %}
+  <title>Admin: Hospitals</title>
+{% endblock %}
+{% block content %}
+
+<br><br>
+<div class="container">
+    <H4 class="text-center">HOSPITAL DETAILS</H4><br>
+    <table class="table table-light table-hover table-bordered table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th class="text-right">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in hos %}
+            <tr>
+                <td> {{t.hospitalId}}</td>
+                <td> {{t.name}}</td>
+                <td>{{t.address}}</td>
+                
+
+                <td class="text-right">
+                    <button class="btn-sm btn-primary badge-pill" style="width: 100px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:edithospital' t.hospitalId %}">EDIT</a> </button>
+                    <button class="btn-sm btn-danger badge-pill" style="width: 100px;margin: 1px;"><a  style="text-decoration: none;color: white;" href="{% url 'Blood:delhospital' t.hospitalId %}">DELETE</a> </button>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    
+    </table>
+</div>
+{% endblock %}

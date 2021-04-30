@@ -14,11 +14,20 @@ class NewDonorForm(forms.ModelForm):
             raise ValidationError(('Mobile Number must have 10 digits'))
         return data
 
+    def clean_donorId(self):
+        data=self.cleaned_data['donorId']
+        reg="^[a-zA-Z0-9_-]*$"
+        if re.search(reg, data):
+            print("valid")
+        else:
+            raise ValidationError(('Username can only contain alphanumeric and underscore,hyphen!'))
+        return data
+
     class Meta:
         model=Donor
-        fields= ('name','address','phone','email','age','sex','bloodType')
+        fields= ('donorId','name','address','phone','email','age','sex','bloodType')
 
 class NewDonationForm(forms.ModelForm):
     class Meta:
         model=Donation
-        fields= ('donorName','date','quantity')
+        fields= ('donorId','quantity')

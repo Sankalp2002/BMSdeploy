@@ -1,6 +1,6 @@
 from django import forms
 #from django.db import models
-from Doctor.models import Doctor
+from Doctor.models import Doctor,Hospital
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
@@ -59,3 +59,7 @@ class docregisterformB(forms.ModelForm):
         fields=('name','age','sex','address','phone','degree','hospitalId')
 
 
+class NewHospitalForm(forms.ModelForm):
+    class Meta:
+        model=Hospital
+        fields= ('name','address')
