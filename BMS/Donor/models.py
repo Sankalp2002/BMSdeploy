@@ -46,7 +46,7 @@ class Donation(models.Model):
     donationId = models.AutoField(primary_key=True)
     donorId =  models.ForeignKey(Donor, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
-    bloodType = models.CharField(max_length=3)
+    # bloodType = models.CharField(max_length=3)
     isApproved = models.CharField(
         max_length=1, choices=APPROVAL_CHOICES, default='P')
     quantity = models.PositiveIntegerField()

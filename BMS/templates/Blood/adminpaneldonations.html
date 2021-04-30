@@ -13,8 +13,6 @@
             <tr>
                 <th scope="col">Donation ID</th>
                 <th scope="col">Donor ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Blood Group</th>
                 <th scope="col">Units</th>
                 <th scope="col">Date</th>
                 <th scope="col">Status</th>
@@ -26,9 +24,7 @@
             <tr>
                 <td> {{t.donationId}}</td>
                 <td> {{t.donorId}}</td>
-                <td>{{t.name}}</td>
                 <td>{{t.date}}</td>
-                <td>{{t.bloodType}}</td>
                 <td>{{t.quantity}}</td>
                 <td>{{t.isApproved}}</td>
                 {% if t.isApproved == 'P' %}

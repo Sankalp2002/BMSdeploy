@@ -68,7 +68,7 @@ def adminpanelrequests(request):
 @user_passes_test(lambda u:u.is_superuser)
 def appreqview(request,qid):
     obj=BloodRequest.objects.get(requestId=qid)
-    btype=obj.bloodType
+    btype=obj.btype.bloodType
     obj2=BloodInventory.objects.get(bloodType=btype)
     q=obj.quantity
     if obj2.unit<q:
@@ -93,7 +93,8 @@ def rejreqview(request,rid):
 @user_passes_test(lambda u:u.is_superuser)
 def appdonview(request,did):
     obj=Donation.objects.get(donationId=did)
-    btype=obj.bloodType
+    obj4=Donor.objects.get(donorId=obj.donorId)
+    btype=obj4.bloodType
     q=obj.quantity
     if len(BloodInventory.objects.filter(bloodType=btype))==0:
         obj3=BloodInventory(bloodType=btype,unit=0)
@@ -116,18 +117,20 @@ def rejdonview(request,did):
 @login_required
 @user_passes_test(lambda u:u.is_superuser)
 def deldocview(request,did):
-    # brset=BloodRequest.objects.filter(doctorId=did)
-    # for obj in brset:
-    #     obj.doctorId=""
-    #     obj.save()
-    # dset=Donor.objects.filter(doctorId=did)
-    # for obj in dset:
-    #     obj.doctorId=""
-    #     obj.save()
-    # pset=Patient.objects.filter(doctorId=did)
-    # for obj in pset:
-    #     obj.doctorId=""
-    #     obj.save()
+    obj2=Doctor.objects.get(DocUser_id=did)
+    i=obj2.DocUser.username
+    brset=BloodRequest.objects.filter(doctorId=i)
+    for obj in brset:
+        obj.doctorId="NULL"
+        obj.save()
+    dset=Donor.objects.filter(doctorId=i)
+    for obj in dset:
+        obj.doctorId="NULL"
+        obj.save()
+    pset=Patient.objects.filter(doctorId=i)
+    for obj in pset:
+        obj.doctorId="NULL"
+        obj.save()
     Doctor.objects.get(DocUser_id=did).delete()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
