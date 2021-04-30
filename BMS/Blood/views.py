@@ -119,10 +119,6 @@ def rejdonview(request,did):
 def deldocview(request,did):
     obj2=Doctor.objects.get(DocUser_id=did)
     i=obj2.DocUser.username
-    brset=BloodRequest.objects.filter(doctorId=i)
-    for obj in brset:
-        obj.doctorId="NULL"
-        obj.save()
     dset=Donor.objects.filter(doctorId=i)
     for obj in dset:
         obj.doctorId="NULL"

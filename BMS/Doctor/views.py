@@ -96,7 +96,6 @@ def docpanelrequest(request):
             if obj.doctorId==request.user.username:
                 reqB.save()
                 req.btype=reqB
-                req.doctorId=request.user.username
                 req.save()
                 return docpanel(request)
             else:
@@ -160,7 +159,9 @@ def docpanelplist(request):
 @login_required
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelrlist(request):
-    requests=BloodRequest.objects.filter(doctorId=request.user.username).order_by('-requestId')
+    plist=Patient.objects.filter(doctorId=request.user.username).values_list('patientId',flat=True)
+    # pset=set(plist)
+    requests=BloodRequest.objects.filter(patientId__in=plist).order_by('-requestId')
     return render(request,'Doctor/doctorpanelrequestlist.html',{'requests':requests})
 
 @login_required

@@ -50,7 +50,7 @@ class BloodRequest(models.Model):
     )
     requestId = models.AutoField(primary_key=True)
     patientId = models.ForeignKey(pmodels.Patient, on_delete=models.CASCADE,help_text="Patient")
-    doctorId = models.CharField(max_length=128,blank=True)
+    # doctorId = models.CharField(max_length=128,blank=True)
     date = models.DateField(default=datetime.date.today)
     # bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required")
     btype = models.OneToOneField(BRtype,on_delete=models.CASCADE,null=True)
