@@ -3,13 +3,13 @@ from django.db import models
 # from Doctor.views import docpanel
 from Doctor.forms import docregisterformA,docregisterformB
 from Donor.forms import NewDonorForm,NewDonationForm
-from Blood.forms import NewRequestForm,NewRequestFormB
+from Blood.forms import NewRequestForm
 from Patient.forms import NewPatientForm
 from Blood.views import home,adminpanel
 from Donor.models import Donor,Donation
 from Patient.models import Patient
 from Doctor.models import Doctor
-from Blood.models import BloodRequest,BloodInventory,BRtype
+from Blood.models import BloodRequest,BloodInventory
 from . import forms
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -85,24 +85,19 @@ def docpanel(request):
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def docpanelrequest(request):
     form=NewRequestForm()
-    formB=NewRequestFormB()
     if request.method=="POST":
         form= NewRequestForm(request.POST)
-        formB= NewRequestFormB(request.POST)
-        if form.is_valid() and formB.is_valid():
-            reqB=formB.save(commit=False)
+        if form.is_valid():
             req=form.save(commit=False)
             obj=Patient.objects.get(patientId=req.patientId)
             if obj.doctorId==request.user.username:
-                reqB.save()
-                req.btype=reqB
                 req.save()
                 return docpanel(request)
             else:
                 raise(ValidationError("You are not the doctor of chosen patient."))
         else:
             print('Error')
-    return render(request,'Doctor/doctorpanelrequest.html',{'form':form,'formB':formB})
+    return render(request,'Doctor/doctorpanelrequest.html',{'form':form})
 
 @login_required
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
@@ -185,9 +180,7 @@ def deldonview(request,pid):
 @login_required
 @user_passes_test(lambda u:not u.is_superuser and Doctor.objects.get(DocUser_id=u.id).isApproved=='Y')
 def cancelreq(request,rid):
-    obj=BloodRequest.objects.get(requestId=rid).btype_id
     BloodRequest.objects.get(requestId=rid).delete()
-    BRtype.objects.get(id=obj).delete()
     return HttpResponseRedirect(reverse('Doctor:docpanelrlist'))
 
 @login_required

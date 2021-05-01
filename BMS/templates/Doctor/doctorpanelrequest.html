@@ -9,11 +9,19 @@
 
 <br><br>
 <div class="panelforms">
+  {% for message in messages %}
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+
+                    </div>
+            		{% endfor %}
     <form method="post">
         <h2 class="header">New Request</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>
         <div class="form-group">{{ form.patientId|as_crispy_field }}</div>
-        <div class="form-group">{{ formB.bloodType|as_crispy_field }}</div>
+        <div class="form-group">{{ form.bloodType|as_crispy_field }}</div>
         <div class="form-group">{{ form.quantity|as_crispy_field }}</div>
         
         {% csrf_token %}

@@ -25,7 +25,15 @@ class BloodInventory(models.Model):
         return self.bloodType
 
 
-class BRtype(models.Model):
+# class BRtype(models.Model):
+    
+    
+#     bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required")
+
+#     def __str__(self):
+#         return self.bloodType
+
+class BloodRequest(models.Model):
     BLOOD_GROUP_CHOICES = (
         ('A+', 'A+'),
         ('A-', 'A-'),
@@ -36,13 +44,6 @@ class BRtype(models.Model):
         ('AB+', 'AB+'),
         ('AB-', 'AB-'),
     )
-    
-    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required")
-
-    def __str__(self):
-        return self.bloodType
-
-class BloodRequest(models.Model):
     APPROVAL_CHOICES = (
         ('Y', 'Yes'),
         ('N', 'No'),
@@ -52,8 +53,8 @@ class BloodRequest(models.Model):
     patientId = models.ForeignKey(pmodels.Patient, on_delete=models.CASCADE,help_text="Patient")
     # doctorId = models.CharField(max_length=128,blank=True)
     date = models.DateField(default=datetime.date.today)
-    # bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required")
-    btype = models.OneToOneField(BRtype,on_delete=models.CASCADE,null=True)
+    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,help_text="Enter the Blood Group required",null=True)
+    # btype = models.OneToOneField(BRtype,on_delete=models.CASCADE,null=True)
     isApproved = models.CharField(
         max_length=1, choices=APPROVAL_CHOICES, default='P')
     quantity = models.PositiveIntegerField(help_text="Enter quantity of Blood required")

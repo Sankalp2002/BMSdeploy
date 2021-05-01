@@ -68,7 +68,7 @@ def adminpanelrequests(request):
 @user_passes_test(lambda u:u.is_superuser)
 def appreqview(request,qid):
     obj=BloodRequest.objects.get(requestId=qid)
-    btype=obj.btype.bloodType
+    btype=obj.bloodType
     obj2=BloodInventory.objects.get(bloodType=btype)
     q=obj.quantity
     if obj2.unit<q:

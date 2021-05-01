@@ -41,8 +41,17 @@
 					
 				</div>
 
+
 				<form class="login100-form validate-form" action="{% url 'Doctor:doclogin' %}" method="POST">
 					{% csrf_token %}
+					{% for message in messages %}
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+
+                    </div>
+            		{% endfor %}
 					
 					<span class="login100-form-title">
 						Login: Unified login for both Admin and Doctor.
