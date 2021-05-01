@@ -26,7 +26,7 @@ def home(request):
 @login_required
 def adminlogout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('Doctor:doclogin'))
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

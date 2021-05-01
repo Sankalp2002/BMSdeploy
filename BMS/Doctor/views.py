@@ -52,7 +52,7 @@ def doclogin(request):
 @login_required
 def doclogout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('Doctor:doclogin'))
  
 def docregister(request):
     registered=False
