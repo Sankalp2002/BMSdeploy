@@ -69,10 +69,19 @@ def adminpanelrequests(request):
 def appreqview(request,qid):
     obj=BloodRequest.objects.get(requestId=qid)
     btype=obj.bloodType
+    l=BloodInventory.objects.filter(bloodType=btype)
+    if l.count()==0:
+        message='Not enough stock of requested Blood Group!'
+        requests=BloodRequest.objects.all().order_by('-requestId')
+        return render(request,'Blood/adminpanelrequests.html',{'requests':requests,'m':message})
+
     obj2=BloodInventory.objects.get(bloodType=btype)
     q=obj.quantity
+    message=""
     if obj2.unit<q:
-        return HttpResponseRedirect(reverse('Blood:adminpanelrequests'))
+        message='Not enough stock of requested Blood Group!'
+        requests=BloodRequest.objects.all().order_by('-requestId')
+        return render(request,'Blood/adminpanelrequests.html',{'requests':requests,'m':message})
     else:
         q=obj.quantity
         obj2.unit-=q

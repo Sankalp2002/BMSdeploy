@@ -9,6 +9,18 @@
 <div class="container">
 
     <H4 class="text-center">REQUEST HISTORY</H4><br>
+ 
+    {% if m is not None %}
+    <div class="alert alert-success">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+
+        {{ m }}
+
+    </div>
+                {% else %}
+                
+                {% endif %}
+
 
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">
