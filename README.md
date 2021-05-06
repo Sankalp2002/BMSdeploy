@@ -2,22 +2,29 @@
 ***
 A Blood Bank Management System
 ---
-Prerequisites:
-* Conda/Pip 
-* MySQL Server
-* Any latest Web Browser
+
 ---
 
 Steps to run the project:
 1. Clone the project.
 ---
 2. If using Conda:
+    Prerequisites:
+  * Conda
+  * MySQL Server
+  * Any latest Web Browser
+
   1. Open Conda Command Prompt.
   2. cd into BMS\BMS\
   3. Create the project env and install dependencies: ``` conda env create -f dbms2.yml ```
   4. Activate the env: ```activate dbms2```
   
 3. If using Pip:
+    Prerequisites:
+  * Pip,Python 3.7+
+  * MySQL Server
+  * Any latest Web Browser
+
   1. Open cmd.
   2. cd into BMS\
   3. Create a env called 'bbms': ``` python3 -m venv dbms2 ```
