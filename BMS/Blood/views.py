@@ -157,9 +157,9 @@ def delpatview(request,pid):
 def appdocview(request,did):
     obj=Doctor.objects.get(DocUser_id=did)
     obj.isApproved='Y'
-    g=Group.objects.get(name='DoctorGroup') 
-    u=User.objects.get(username=obj.DocUser.username)
-    u.groups.add(g)
+    # g=Group.objects.get(name='DoctorGroup') 
+    # u=User.objects.get(username=obj.DocUser.username)
+    # u.groups.add(g)
     obj.save()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
