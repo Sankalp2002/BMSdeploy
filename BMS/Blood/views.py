@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.core.validators import ValidationError,validate_email
 import re
+from django.contrib.auth.models import Group
 
 # Create your views here.
 def valid_phone(data):
@@ -136,7 +137,7 @@ def deldocview(request,did):
     for obj in pset:
         obj.doctorId="NULL"
         obj.save()
-    Doctor.objects.get(DocUser_id=did).delete()
+    User.objects.get(username=i).delete()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 
 @login_required
@@ -156,6 +157,9 @@ def delpatview(request,pid):
 def appdocview(request,did):
     obj=Doctor.objects.get(DocUser_id=did)
     obj.isApproved='Y'
+    g=Group.objects.get(name='DoctorGroup') 
+    u=User.objects.get(username=obj.DocUser.username)
+    u.groups.add(g)
     obj.save()
     return HttpResponseRedirect(reverse('Blood:adminpaneldoctor'))
 

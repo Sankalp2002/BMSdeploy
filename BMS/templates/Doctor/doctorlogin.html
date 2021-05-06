@@ -32,6 +32,7 @@
                     <a href="{%url 'home' %}">Home</a>
                 </button>
             </div>
+			
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					
@@ -46,11 +47,16 @@
 					{% csrf_token %}
 
 
-                    <!-- <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
-                        <p>Invalid Login details.</p>
+                    {% if m is not None %}
+			<div class="alert alert-success">
+				<a class="close" href="#" data-dismiss="alert">×</a>
 
-                    </div> -->
+				{{ m }}
+
+			</div>
+                {% else %}
+                
+                {% endif %}
 
 					
 					<span class="login100-form-title">

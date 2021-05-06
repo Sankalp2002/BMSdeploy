@@ -36,7 +36,8 @@ class Doctor(models.Model):
         Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
     class Meta:
         permissions=(
-            ("doctor_permission","Can do the doctor's work"),
+            ("is_doctor","Has been registered."),
+            ("is_approved","Can do the doctor's work"),
         )
     def __str__(self):
         return self.DocUser.username
