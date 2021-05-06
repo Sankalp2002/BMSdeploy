@@ -33,7 +33,8 @@ def is_donors_doctor(function):
 
 def is_doctor_approved(function):
     def wrap(request, *args, **kwargs):
-        if request.user.groups.filter(name='DoctorGroup').exists():
+        # if request.user.groups.filter(name='DoctorGroup').exists():
+        if Doctor.objects.get(DocUser_id=request.user.id).isApproved=='Y':
             return function(request, *args, **kwargs)
         else:
             e="You are not approved by the Admin!"
