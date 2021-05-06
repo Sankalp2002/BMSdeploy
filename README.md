@@ -14,14 +14,14 @@ Steps to run the project:
 2. If using Conda:
   1. Open Conda Command Prompt.
   2. cd into BMS\BMS\
-  3. Create the project env and install dependencies: ``` conda env create -f bbms.yml ```
-  4. Activate the env: ```activate bbms```
+  3. Create the project env and install dependencies: ``` conda env create -f dbms2.yml ```
+  4. Activate the env: ```activate dbms2```
   
 3. If using Pip:
   1. Open cmd.
   2. cd into BMS\
-  3. Create a env called 'bbms': ``` python3 -m venv bbms ```
-  4. Activate the env: ``` source bbms/bin/activate ```
+  3. Create a env called 'bbms': ``` python3 -m venv dbms2 ```
+  4. Activate the env: ``` source dbms2/bin/activate ```
   5. cd into BMS\
   6. Install the dependencies: ``` pip install -r requirements.txt ```
 ---

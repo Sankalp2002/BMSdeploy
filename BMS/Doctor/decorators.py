@@ -3,9 +3,11 @@ from Donor.models import Donor,Donation
 from Patient.models import Patient
 from Doctor.models import Doctor
 from Blood.models import BloodRequest,BloodInventory
+from Blood.views import errorview
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
 
 def is_patients_doctor(function):
     def wrap(request, *args, **kwargs):
@@ -34,7 +36,8 @@ def is_doctor_approved(function):
         if request.user.groups.filter(name='DoctorGroup').exists():
             return function(request, *args, **kwargs)
         else:
-            return HttpResponse("You are not approved by the ADMIN!")
+            e="You are not approved by the Admin!"
+            return render(request,'Blood/error.html', {'e':e})
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
