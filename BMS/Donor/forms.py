@@ -28,7 +28,7 @@ class NewDonorForm(forms.ModelForm):
         if re.search(reg, data):
             print("valid")
         else:
-            raise ValidationError(('Username can only contain alphanumeric and underscore,hyphen!'))
+            raise ValidationError(('ID can only contain alphanumeric chars., underscore and hyphen!'))
         return data
 
     class Meta:
