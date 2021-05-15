@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from django.conf.urls import include
 from Doctor import views as dviews
 from Blood import views as bviews
@@ -14,5 +14,5 @@ urlpatterns = [
     path('adminlogout/',bviews.adminlogout,name='adminlogout'),
     # path('Patient/',include('Patient.urls')),
     # path('Donor/',include('Donor.urls'))
-    path('<str:e>',bviews.errorview,name='errorview'),
+    path('<path:e>/',bviews.errorview,name='errorview'),
 ]
