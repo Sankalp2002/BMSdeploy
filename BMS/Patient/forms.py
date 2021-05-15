@@ -23,7 +23,7 @@ class NewPatientForm(forms.ModelForm):
         return data
 
     def clean_patientId(self):
-        data=self.cleaned_data['donorId']
+        data=self.cleaned_data['patientId']
         reg="^[a-zA-Z0-9_-]*$"
         if re.search(reg, data):
             print("valid")
