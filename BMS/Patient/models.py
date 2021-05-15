@@ -23,12 +23,12 @@ class Patient(models.Model):
     patientId = models.CharField(primary_key=True,max_length=128,help_text="Patient ID is for unique identification.")
     doctorId = models.CharField(max_length=128,blank=True)
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
-    age = models.PositiveIntegerField(default=18, help_text="Enter your age")
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
-    address = models.CharField(max_length=128, help_text="Enter your address")
-    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
-    email = models.EmailField(max_length=32)
-    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES)
+    age = models.PositiveIntegerField(default=18, help_text="Enter your age",blank=False)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M',blank=False)
+    address = models.CharField(max_length=128, help_text="Enter your address",blank=False)
+    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits",blank=False)
+    email = models.EmailField(max_length=32,blank=False)
+    bloodType = models.CharField(max_length=3,choices=BLOOD_GROUP_CHOICES,blank=False)
 
     def __str__(self):
         return self.patientId

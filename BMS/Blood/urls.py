@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 app_name='Blood'
 
 urlpatterns=[
-    path('',views.adminpanel,name='adminpanel'),
+    path('Stock',views.adminpanel,name='adminpanel'),
     path('Doctor/list/',views.adminpaneldoctor,name='adminpaneldoctor'),
     path('Donation/list/',views.adminpaneldonations,name='adminpaneldonations'),
     path('Donor/list/',views.adminpaneldonors,name='adminpaneldonors'),

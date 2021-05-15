@@ -12,14 +12,6 @@
     <link rel="manifest" href="{% static 'images/icons/site.webmanifest' %}">
 <br><br>
 <div class="panelforms">
-  {% for message in messages %}
-
-                    <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
-                        {{ message }}
-
-                    </div>
-            		{% endfor %}
     <form method="post">
         <h2 class="header">New Request</h2>
        <div class="illustration"><i class="icon ion-clipboard"></i></div>

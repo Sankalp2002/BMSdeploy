@@ -26,12 +26,12 @@ class Doctor(models.Model):
         ('P', 'Pending'),
     )
     name = models.CharField(max_length=32, help_text="Enter your name",blank=False)
-    age = models.PositiveIntegerField(default=18, help_text="Enter your age")
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M',help_text="Sex")
-    address = models.CharField(max_length=128, help_text="Enter your address")
-    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits")
-    isApproved = models.CharField(max_length=1, choices=APPROVAL_CHOICES, default='P')
-    degree = models.CharField(max_length=32, help_text="Enter your Degree")
+    age = models.PositiveIntegerField(default=18, help_text="Enter your age",blank=False)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M',help_text="Sex",blank=False)
+    address = models.CharField(max_length=128, help_text="Enter your address",blank=False)
+    phone = models.CharField(max_length=10,help_text="Enter your mobile number of 10 digits",blank=False)
+    isApproved = models.CharField(max_length=1, choices=APPROVAL_CHOICES, default='P',blank=False)
+    degree = models.CharField(max_length=32, help_text="Enter your Degree",blank=False)
     hospitalId = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, help_text="Enter ID of your hospital")
     class Meta:

@@ -5,13 +5,6 @@ from django.core.exceptions import ValidationError
 import re
 
 class NewPatientForm(forms.ModelForm):
-    def clean_age(self):
-        data=self.cleaned_data['age']
-        if data>70:
-            raise ValidationError(('You are gonna die soon'))
-        if data<18:
-            raise ValidationError(('Too young to donate blood'))
-        return data
         
     def clean_phone(self):
         data=self.cleaned_data['phone']

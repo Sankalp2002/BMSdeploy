@@ -249,6 +249,3 @@ def errorview(request,e):
     e="Page not found!"
     return render(request,'Blood/error.html',{'e':e})
 
-def error_404(request, exception):
-   context = {}
-   return render(request,'Blood/404.html', context)
