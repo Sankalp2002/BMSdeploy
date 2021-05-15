@@ -24,7 +24,7 @@ class Donor(models.Model):
     )
     donorId = models.CharField(primary_key=True,max_length=128,help_text="Donor ID is for unique identification.")
     doctorId = models.CharField(max_length=128,blank=True)
-    name = models.CharField(max_length=32,help_text="Enter your name")
+    name = models.CharField(max_length=32,help_text="Enter your name",blank=False)
     age = models.PositiveIntegerField(default=18, help_text="Enter your age")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
     address = models.CharField(max_length=128, help_text="Enter your address")
