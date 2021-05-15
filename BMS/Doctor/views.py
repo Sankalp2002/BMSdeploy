@@ -4,7 +4,7 @@ from Doctor.forms import docregisterformA,docregisterformB
 from Donor.forms import NewDonorForm,NewDonationForm
 from Blood.forms import NewRequestForm
 from Patient.forms import NewPatientForm
-from Blood.views import home,adminpanel
+from Blood.views import home,adminpanel,errorview
 from Donor.models import Donor,Donation
 from Patient.models import Patient
 from Doctor.models import Doctor
@@ -60,8 +60,8 @@ def doclogin(request):
             else:
                 return HttpResponse("Account not active")
         else:
-            print("A login failed")
-            return(HttpResponse("Invalid login details!"))
+            e="Invalid Login Details!"
+            return render(request,'Blood/error.html',{'e':e})
     else:
         return render(request,'Doctor/doctorlogin.html')
 
