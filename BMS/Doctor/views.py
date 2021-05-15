@@ -29,6 +29,21 @@ def valid_phone(data):
     else:
         raise ValidationError(('Mobile Number must have 10 digits'))
 
+# def valid_age(data):
+#     if data>70:
+#         raise ValidationError(('You are gonna die soon'))
+#     if data<18:
+#         raise ValidationError(('Too young to donate blood'))
+#     return data
+
+# def valid_Id(data):
+#     reg="^[a-zA-Z0-9_-]*$"
+#     if re.search(reg, data):
+#         print("valid")
+#     else:
+#         raise ValidationError(('ID can only contain alphanumeric chars., underscore and hyphen!'))
+#     return data
+
 def doclogin(request):
     if request.method=='POST':
         username=request.POST.get('username')
